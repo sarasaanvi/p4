@@ -1,0 +1,135 @@
+/*
+	Author : Ashok
+	Website : http://responsivewebinc.com
+	********************************************
+	For Paid Support - Contact me.
+	********************************************
+*/
+		
+body{
+background:#ddd;
+}
+
+a, a:visited{
+color:#000;
+text-decoration:underline;
+}
+
+a:hover{
+text-decoration:none;
+}
+
+h1{
+font-family: 'Russo One', sans-serif;
+padding:44px 5px 10px 5px;
+}
+
+h2,h3,h4,h5,h6{
+font-family: 'Russo One', sans-serif;
+font-weight:normal;
+}
+
+.outer .container{
+background:#eee;
+}
+
+.sidebar{
+background:#000;
+color:#aaa;
+}
+
+header{
+padding-bottom:0px;
+text-align:center;
+}
+
+.tag{
+text-transform:uppercase;
+padding-bottom:20px;
+color:#ccc;
+}
+
+.sidebar h1 a, .sidebar h1 a:visited, .sidebar h1 a:hover{
+color:#eee;
+font-size:50px;
+}
+
+.inner a, .inner a:hover{
+color:#fdce4e;
+text-decoration:none;
+}
+
+.inner a:hover{
+color:#d7a82a;
+}
+
+.inner{
+margin:0px 10px;
+border-right:1px dashed #444;
+border-left:1px dashed #444;
+padding:10px;
+}
+
+.inner hr{
+margin:3px;
+padding:0px;
+border-bottom:0px;
+border-top:1px dashed #444;
+}
+
+.inner h3{
+color:#eee;
+padding:6px 0px;
+}
+
+.social{
+text-align:center;
+}
+
+.search{
+text-align:center;
+}
+
+.social img{
+margin:5px;
+}
+
+.sidebar2{
+float:left;
+background:#000;
+color:#aaa;
+position:absolute;
+top:210px;
+}
+
+.main-padd{
+padding:10px;
+}
+
+.main-padd img{
+padding:10px 0px;
+}
+
+.meta{
+padding:5px;
+margin:5px 0px;
+font-size:11px;
+text-transform:uppercase;
+word-spacing:0.1em;
+background:#eaeaea;
+}
+
+.copy{
+padding-top:10px;
+}
+
+/* Footer */
+
+footer{
+padding:5px;
+font-size:12px;
+}
+
+.attr{
+text-align:right;
+}

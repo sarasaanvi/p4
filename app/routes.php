@@ -11,9 +11,12 @@
 |
 */
 
+
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('home');
+	//return "Home Page";
+	
 });
 
 Route::get('/get-environment',function() {
