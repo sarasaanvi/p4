@@ -1,6 +1,6 @@
 @extends('_master')
 
-@section('content')
+@section('layout')
 <div class="span4">
 	<div class="sidebar">
 		<div class="inner">
@@ -13,3 +13,4 @@
 		<p>@yield('main_content')</p>
 	</div>
 </div>
+@stop
