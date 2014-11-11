@@ -18,6 +18,19 @@ Route::get('/', function()
 	//return "Home Page";
 	
 });
+Route::post('/', function()
+{
+	return View::make('home');
+	//return "Home Page";
+	
+});
+
+Route::get('/signin', function()
+{
+	return View::make('signin');
+	//return "Home Page";
+	
+});
 
 Route::get('/get-environment',function() {
 
