@@ -23,6 +23,8 @@
 			{{ Form::submit( 'Sign in' ) }}
 			<br>
 			<a href ="">Forget Password</a>
+			<br>
+			<a href ="/signup">Sign Up</a>
 		{{ Form::close() }}
 	</div>
 @stop

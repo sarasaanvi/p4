@@ -1,3 +1,12 @@
+/*!
+ * Bootstrap v2.0.4
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
 .clearfix {
   *zoom: 1;
 }
@@ -141,6 +150,7 @@ a:hover {
 .row {
   margin-left: -20px;
   *zoom: 1;
+  
 }
 .row:before,
 .row:after {
@@ -173,6 +183,8 @@ a:hover {
 }
 .span8 {
   width: 620px;
+  
+  
 }
 .span7 {
   width: 540px;
@@ -831,7 +843,6 @@ textarea {
   font-size: 13px;
   font-weight: normal;
   line-height: 18px;
-  font-weight : bold;
 }
 input,
 button,
@@ -3764,4 +3775,3 @@ button.close {
 .collapse.in {
   height: auto;
 }
-

@@ -11,7 +11,11 @@
 |
 */
 
-
+Route::get('/test', function()
+{
+	return View::make('test');
+	
+});
 Route::get('/', function()
 {
 	return View::make('home');
@@ -21,14 +25,17 @@ Route::get('/', function()
 Route::post('/', function()
 {
 	return View::make('home');
-	//return "Home Page";
+	
+});
+Route::get('/signup', function()
+{
+	return View::make('signup');
 	
 });
 
 Route::get('/signin', function()
 {
 	return View::make('signin');
-	//return "Home Page";
 	
 });
 
