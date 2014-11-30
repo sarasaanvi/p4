@@ -1,11 +1,4 @@
-/*
-	Author : Ashok
-	Website : http://responsivewebinc.com
-	********************************************
-	For Paid Support - Contact me.
-	********************************************
-*/
-		
+	
 body{
 background:#ddd;
 }
@@ -132,4 +125,10 @@ font-size:12px;
 
 .attr{
 text-align:right;
+}
+
+.flash-message{
+	padding:5px;
+	background-color:blue;
+	text-align:center;
 }

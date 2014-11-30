@@ -16,3 +16,14 @@
 	//background-color: red;
 	float: right;
 }
+
+.form-control-wrap{
+	width: 50%;	
+	float:left;
+	display:block;
+}
+.form-control-wrap-label{
+    width: 100px;
+    display: inline-block;
+}
+

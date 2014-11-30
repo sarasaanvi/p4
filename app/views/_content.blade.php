@@ -1,5 +1,4 @@
 @extends('_master')
-
 @section('layout')
 <div class="span4">
 	<div class="sidebar">

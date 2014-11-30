@@ -1,59 +1,38 @@
-@extends('_master')
-
-@section('image')
-	<img src="img/image.jpg" alt="Student/Teacher image" class="form-image"/>
+@extends('_base')
+@section('stylesheet')
+	<link href="<?php public_path();?>/style/bootstrap.css" rel="stylesheet">
+	<link  href="<?php public_path();?>/style/style.css" rel="stylesheet">
+	<link  href="<?php public_path();?>/style/authentication.css" rel="stylesheet">
 @stop
-<!-- No side bar in page -->
-@section('layout')
-<div class="content">
-	{{ Form::open(array( 'url' => '/' ,'class' => 'form-inline')) }}
-		<fieldset>
-			<legend>Personal Information</legend>
-						
-			{{ Form::label( 'first', 'First Name ') }}
-			{{ Form::text( 'first_name' ) }}
-			
-			{{ Form::label( 'middle', 'Middle Name ') }}
-			{{ Form::text( 'middle_name' ) }}
-			<br>	
-			{{ Form::label( 'last', 'Last Name ') }}
-			{{ Form::text( 'last_name' ) }}
-				
-			{{ Form::label( 'email', 'Email Address ') }}
-			{{ Form::text( 'email' ) }}
+
+@section('body')
+	style="background-image: url('<?php public_path();?>/img/students_dull1.jpg');"
+@stop
+
+@section('base')	
+	<div class= "authentication">
+		<!-- Logo image and title -->
+		<img src="img/Logo_Image.png" alt=""/>
+		<h2>Sign Up </h2>
+		<br>
+		{{ Form::open(array( 'url' => '/signup')) }}
+			{{ Form::label( 'user_name', 'User Name ', array('id' => 'field')) }}
+			<p><i>
+				&nbsp;&nbsp;&nbsp;&nbsp;For student user name is GradeRollNumber
+				<br>&nbsp;&nbsp;&nbsp;&nbsp;For teacher user name is employee Number<br>
+			</i></p>
+			{{ Form::text( 'username' ,'', array('id' => 'field')) }}
 			<br>
-			
-			
-			{{ Form::label( 'phone', 'Phone ') }}
-			{{ Form::text( 'phone' ) }}
-			
-			{{ Form::label( 'account_type', 'Account Type ') }}
-			{{ Form::text( 'account_type' ) }}	
-			
-			
-			<br>
-			{{ Form::label( 'address1', 'Address 1 ') }}
-			{{ Form::text( 'address1' ) }}
-			
-			{{ Form::label( 'address2', 'Address 2 ') }}
-			{{ Form::text( 'address2' ) }}
-			<br>		
-			{{ Form::label( 'Photo', 'Upload Photo ') }}
-			{{ Form::text( 'last_name' ) }}
-		</fieldset>	
-			<br>
-			<fieldset>
-				<legend>Choose Password</legend>
-				{{ Form::label( 'password', 'Password ', array('id' => 'field')) }}
-				{{ Form::password( 'pwd1' ) }}
-				{{ Form::label( 'password', 'Retype Password ', array('id' => 'field')) }}
-				{{ Form::password( 'pwd2' ) }}
-			<fieldset>
+			{{ Form::label('account_type', 'Account Type ') }}
+				{{ Form::radio('account_type', 'Student', true) }} Student
+				{{ Form::radio('account_type', 'Teacher') }} Teacher 
 			<br>
 			<br>
-			{{ Form::submit( 'Sign Up' ) }}
+			{{ Form::label( 'password', 'Password ', array('id' => 'field')) }}
+			{{ Form::password( 'pwd' ) }}
+			<br>			
+			{{ Form::submit( 'Sign up' ) }}
 			<br>
-			
 		{{ Form::close() }}
-</div>
+	</div>
 @stop

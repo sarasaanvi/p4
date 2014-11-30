@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration {
 		//Creating login table
 		Schema::create('users',function($table){
 			$table->increments('id');
-			$table->string('email');
+			$table->string('user_name')->unique();
 			$table->string('password');
 			$table->string('account_type');
 			$table->timestamps();
