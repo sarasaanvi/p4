@@ -1,37 +1,25 @@
 @extends('_base')
-@section('stylesheet')
-	<link href="<?php public_path();?>/style/bootstrap.css" rel="stylesheet">
-	<link  href="<?php public_path();?>/style/style.css" rel="stylesheet">
-	<link  href="<?php public_path();?>/style/authentication.css" rel="stylesheet">
-@stop
-
-@section('body')
-	style="background-image: url('<?php public_path();?>/img/students_dull1.jpg');"
-@stop
-
-@section('base')	
-	<div class= "authentication">
-		<!-- Logo image and title -->
-		<img src="img/Logo_Image.png" alt=""/>
-		<h2>Sign In </h2>
-		<br>
-		{{ Form::open(array( 'url' => '/signin')) }}
-			{{ Form::label( 'user', 'User Name ', array('id' => 'field')) }}
-			{{ Form::text( 'username' ,'', array('id' => 'field')) }}
+@section('main_content')
+	<h3><span>Sign-in to Report360</span></h3>	
+		{{ Form::open(array( 'action' => 'UserController@postSignin' ,'class' => 'form-inline')) }}
 			<br>
-			{{ Form::label('account_type', 'Account Type ') }}
-				{{ Form::radio('account_type', 'Student', true) }} Student
-				{{ Form::radio('account_type', 'Teacher') }} Teacher 
+			{{ Form::label( 'user', 'User Name ',array('class' => 'form-control-wrap-label')) }}			
+			{{ Form::text( 'user_name' ) }}
+			
 			<br>
 			<br>
-			{{ Form::label( 'password', 'Password ', array('id' => 'field')) }}
-			{{ Form::password( 'pwd' ) }}
+			{{ Form::label( 'password', 'Password ',array('class' => 'form-control-wrap-label')) }}
+			{{ Form::password( 'password' ) }}
 			<br>			
+			<br>
 			{{ Form::submit( 'Sign in' ) }}
+		{{ Form::close() }}
+			<br>
 			<br>
 			<a href ="">Forget Password</a>
 			<br>
-			<a href ="/Sign in">Sign Up</a>
-		{{ Form::close() }}
+			<br>
+			<a href ="/user/signup">Sign Up</a>
+		
 	</div>
 @stop

@@ -22,5 +22,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
+	
+	/**
+	* 
+	* get the account type for the user : Student /Teacher or Admin
+	*/
+    public static function getAccountType($user_name) {
+		$user = User::where('user_name', '=', $user_name)->first();
+		 # If we found the user, then return it's account type
+		if($user) {
+			#echo $user;
+			return $user->account_type;
+		} 
+		else{
+			return "Not Found";
+		}
 
+	}
+	
 }

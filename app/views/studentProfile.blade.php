@@ -1,74 +1,75 @@
 @extends('_master')
-
-@section('image')
-	<img src="img/image.jpg" alt="Student/Teacher image" class="form-image"/>
-@stop
-<!-- No side bar in page -->
-@section('layout')
-<div class="content">
-
+@section('main-content')
+	<h3><span>Edit Student Profile</span></h3>
+	
 	{{ Form::open(array( 'url' => '/' ,'class' => 'form-inline')) }}
+		
+		<br>
 		<fieldset>
-			<legend>Personal Information</legend>
-			<div class="form-control-wrap">			
+			
+			<legend>Personal Information</legend>	
+				<span class ="mainheader">
+					<img src="images/image.jpg" alt="" class= "profile-image">
+				</span>	
 				{{ Form::label( 'first', 'First Name ',array('class' => 'form-control-wrap-label')) }}
 				{{ Form::text( 'first_name' ) }}
-			</div>
-			<div class="form-control-wrap">	
+			
 				{{ Form::label( 'middle', 'Middle Name ',array('class' => 'form-control-wrap-label')) }}
 				{{ Form::text( 'middle_name' ) }}
-			</div>
-			<br>	
-			<div class="form-control-wrap">	
-				{{ Form::label( 'last', 'Last Name ',array('class' => 'form-control-wrap-label')) }}
-				{{ Form::text( 'last_name'  ) }}
-			</div>
-			<div class="form-control-wrap">		
-				{{ Form::label( 'email', 'Email Address ',array('class' => 'form-control-wrap-label')) }}
-				{{ Form::text( 'email' ) }}
-			</div>
+			
+			<br>
 			<br>
 			
-			<div class="form-control-wrap">	
-				{{ Form::label( 'phone', 'Phone ',array('class' => 'form-control-wrap-label')) }}
-				{{ Form::text( 'phone' ) }}
-			</div>
-			<div class="form-control-wrap">	
-				{{ Form::label( 'account_type', 'Account Type ',array('class' => 'form-control-wrap-label')) }}
-				{{ Form::text( 'account_type' ) }}	
-			</div>
+				{{ Form::label( 'last', 'Last Name ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'last_name'  ) }}
+				{{ Form::label( 'dob', 'Date of Birth ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'dob' ) }}
+			
 			<br>
-			<div class="form-control-wrap">	
-				{{ Form::label( 'address1', 'Address 1 ',array('class' => 'form-control-wrap-label')) }}
-				{{ Form::text( 'address1' ) }}
-			</div>
-			<div class="form-control-wrap">	
-				{{ Form::label( 'address2', 'Address 2 ',array('class' => 'form-control-wrap-label')) }}
-				{{ Form::text( 'address2' ) }}
-			</div>
-			<br>		
-			<div class="form-control-wrap">	
+			<br>
+				{{ Form::label( 'roll_number', 'Roll Number ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'roll_number' ) }}
+				{{ Form::label( 'grade', 'Grade ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'grade'  ) }}
+			<br>
+			<br>	
+			
+				{{ Form::label( 'section', 'Section ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'section' ) }}
+				<br>
+				<br>
 				{{ Form::label( 'Photo', 'Upload Photo ',array('class' => 'form-control-wrap-label')) }}
 				{{ Form::file( 'photo' ) }}
-			</div>
-		</fieldset>	
+				
+			
 			<br>
-			<fieldset>
-				<legend>Choose Password</legend>
-				<div class="form-control-wrap">	
-					{{ Form::label( 'password', 'Password ',array('class' => 'form-control-wrap-label')) }}
-					{{ Form::password( 'pwd1' ) }}
-				</div>
-				<div class="form-control-wrap">	
-					{{ Form::label( 'password', 'Retype Password ',array('class' => 'form-control-wrap-label')) }}
-					{{ Form::password( 'pwd2' ) }}
-				</div>
-			<fieldset>
+			<br>
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>Contact Information</legend>	
+				{{ Form::label( 'email', 'Email Address ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'email' ) }}				
+				{{ Form::label( 'phone', 'Phone ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'phone' ) }}
+			
+			
+			<br>
+			<br>
+				{{ Form::label( 'address1', 'Address 1 ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'address1' ) }}
+				
+				{{ Form::label( 'address2', 'Address 2 ',array('class' => 'form-control-wrap-label')) }}
+				{{ Form::text( 'address2' ) }}
+			<br>
+			<br>
+				
+		</fieldset>	
 			<br>
 			<br>
 			{{ Form::submit( 'Submit','',array('class' => 'form-control-wrap-button')) }}
 			<br>
 			
 		{{ Form::close() }}
-</div>
+
 @stop
