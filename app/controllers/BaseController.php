@@ -11,12 +11,5 @@ class BaseController extends Controller {
 		# Any submissions via POST need to pass the CSRF filter
 		$this->beforeFilter('csrf', array('on' => 'post'));
 	}
-	protected function setupLayout()
-	{
-		if ( ! is_null($this->layout))
-		{
-			$this->layout = View::make($this->layout);
-		}
-	}
-
+	
 }

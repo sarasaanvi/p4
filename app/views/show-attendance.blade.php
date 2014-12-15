@@ -15,11 +15,8 @@
 			{{ Form::close() }}
 			{{ Form::open(array('url' => '/teacher/delete-attendance', 'method' => 'POST' ,'class' => 'form-inline')) }}	
 				{{ Form::label( 'space2', '&nbsp;&nbsp;&nbsp;&nbsp;') }}
-				{{ Form::submit( ' DELETE ') }}
-				
-			{{ Form::close() }}
-			
-					
+				{{ Form::submit( ' DELETE ') }}				
+			{{ Form::close() 
 		</span>
 @stop
 

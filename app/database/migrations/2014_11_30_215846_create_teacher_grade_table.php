@@ -13,14 +13,15 @@ class CreateTeacherGradeTable extends Migration {
 	public function up()
 	{
 		# Create pivot table connecting `teachers` and `grade`
-		Schema::create('teacher_grade', function($table) {
+		Schema::create('grade_teacher', function($table) {
 
 			# AI, PK
 			# none needed
 
 			# General data...
-			$table->integer('teacher_id')->unsigned();
 			$table->integer('grade_id')->unsigned();
+			$table->integer('teacher_id')->unsigned();
+			
 			
 			# Define foreign keys...
 			$table->foreign('teacher_id')->references('id')->on('teachers');
@@ -38,7 +39,7 @@ class CreateTeacherGradeTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('teacher_grade');
+		Schema::drop('grade_teacher');
 	}
 
 }

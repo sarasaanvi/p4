@@ -11,10 +11,10 @@ class Report360Seeder extends Seeder {
 		DB::statement('TRUNCATE exams');
 		DB::statement('TRUNCATE extracurriculars');
 		DB::statement('TRUNCATE attendances');
-		DB::statement('TRUNCATE teacher_grade');
+		DB::statement('TRUNCATE grade_teacher');
 	
 		
-		#user tables
+	#user tables
 		# Adding student id =1
 		$studentUsr = new User;
 		$studentUsr->user_name = 'S1';
@@ -45,10 +45,21 @@ class Report360Seeder extends Seeder {
 		$teacherUsr->password = Hash::make('abc123');
 		$teacherUsr->sign_up = true;
 		$teacherUsr->save();
-		
- 		#Adding Teacher
+	
+	#Adding grades by default each grade sections- 'A' 
+		for ($i=1;$i<=12;$i++){
+			$grade = new Grade;
+			$grade->grade = $i;
+			$grade->section = 'A';
+			$grade->timestamps = false;
+			$grade->save();
+		} 
+
+
+	
+ 	#Adding Teacher
 		$teacher = new Teacher;
-		$teacher->first_name = 'Philip';
+		$teacher->first_name = 'Skyler';
 		$teacher->last_name = 'Brown';
 		$teacher->dob = '1932-10-27';
 		$teacher->email = 'philip.brown@gmail.com';
@@ -62,15 +73,14 @@ class Report360Seeder extends Seeder {
 		$teacher->timestamps = false;
 		$teacher->save();
 		
+		#Adding Grades belong to this teacher (adding row in Teacher-Grade table)
+		# This enters a new row in the book_tag table
+		$grades = array(9,10);
+		foreach ($grades as $grade) {
+			$teacher->grades()->save(Grade::find($grade));
+		}
 		
- 		#Adding grades by default each grade sections- 'A' 
-		for ($i=1;$i<=12;$i++){
-			$grade = new Grade;
-			$grade->grade = $i;
-			$grade->section = 'A';
-			$grade->timestamps = false;
-			$grade->save();
-		} 
+ 	
 		
 		
 	#Adding student
@@ -91,10 +101,10 @@ class Report360Seeder extends Seeder {
 		
 		$student->save();
 		
-		#Adding student
+	#Adding student
 		$student = new Student;
 		$student->roll = 2;
-		$student->first_name = 'Hemadris';
+		$student->first_name = 'Hemadri';
 		$student->last_name = 'Saxena';
 		$student->dob = '1982-04-30';
 		$student->email = 'hemadri.saxena@gmail.com';
@@ -108,6 +118,44 @@ class Report360Seeder extends Seeder {
 		$student->user_name = 'S2';
 		
 		$student->save();
+		
+		
+		#Adding Attendance for student id 1
+		$date = '2014-12-01'; # YYYY-MM-DD
+		for ($i=1;$i<=12;$i++){
+			$attendance = new Attendance;
+			$attendance->student_id = 1;
+			$attendance->grade_id = 9;
+			$attendance->teacher_id = 1;			
+			$val = rand(0, 1);
+			//echo $val;
+			$attendance->attended =  $val;
+			//echo $date;
+			$attendance->attendance_date = $date ;
+			$attendance->timestamps = false;
+			#next date
+			$date1 = str_replace('-', '/', $date);
+			$date = date('Y-m-d',strtotime($date1 . "+1 days"));
+			$attendance->save();
+		} 
+		#Adding Attendance for student id 2
+		$date = '2014-12-01'; # YYYY-MM-DD
+		for ($i=1;$i<=12;$i++){
+			$attendance = new Attendance;
+			$attendance->student_id = 2;
+			$attendance->grade_id = 9;
+			$attendance->teacher_id = 1;			
+			$val = rand(0, 1);
+			//echo $val;
+			$attendance->attended =  $val;
+			//echo $date;
+			$attendance->attendance_date = $date ;
+			$attendance->timestamps = false;
+			#next date
+			$date1 = str_replace('-', '/', $date);
+			$date = date('Y-m-d',strtotime($date1 . "+1 days"));
+			$attendance->save();
+		} 
 		
 		
 	}

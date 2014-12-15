@@ -2,11 +2,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	
+	@yield('javascript')
 	<!--default stylesheet -->
 	<link rel="stylesheet" href="<?php public_path();?>/css/style.css" type="text/css">
 	<link rel="stylesheet" href="<?php public_path();?>/css/report360.css" type="text/css">
 	@yield('stylesheet')
-	@yield('javascript')
 	
 	<title>		
 			@yield('title',"Report 360")

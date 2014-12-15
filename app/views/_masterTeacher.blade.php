@@ -5,7 +5,7 @@
 			<a href="\studentProfile">Edit Student Profile</a>
 		</li>
 		<li>
-			<a href="\gradeAdd">Add Grades</a>	
+			<a href='/teacher/add-mark'>Add Marks</a>	
 		</li>
 		<li class="selected">
 			<a href='/teacher/add-attendance'>Add attendance</a>	

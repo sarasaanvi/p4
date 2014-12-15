@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-debugbar": "~1.8",
-		"paste/pre": "dev-master"
+		"paste/pre": "dev-master",
+		"ob/highcharts-bundle": "~1.2"
+		
 	},
 	"autoload": {
 		"classmap": [

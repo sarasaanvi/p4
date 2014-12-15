@@ -1,12 +1,16 @@
 <?php
-
+use Ob\HighchartsBundle\Highcharts\Highchart;
 class TeacherController extends BaseController {
-	
+		
 	public function __construct() {
 		# Make sure BaseController construct gets called
-		parent::__construct();              
+		parent::__construct();           
+		
+		$this->beforeFilter('auth');
+
     } 
 	
+		
 	private function customize(){
 		$user_name = Session::get('user_name');
 		//echo $user_name;
@@ -33,14 +37,69 @@ class TeacherController extends BaseController {
 	
 	}
 	
+	#Plot attendance chart
+		public function showAttendanceChart($grade) {
+		//$grade = Session::get('grade_id');
+		$toDate  = date('Y-m-d');
+		$m  = date('m');
+		$y =date('Y');
+		$fromDate = $y ."-" . $m ."-" . "01";
+		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
+		$teacher_id = $teacher->id;
+		$error_msg = "";
+		#Getting List of all the student in a grade
+		$students = Student::getClass($grade);
+		if($students->isEmpty() != TRUE) {	
+			#Setting Chart properties
+			$chartArray["chart"] = array("type" => "column"); 
+			$chartArray["title"] = array("text" => "Attendance for Grade ". $grade); 
+			$chartArray["credits"] = array("enabled" => true); 
+			$chartArray["navigation"] = array("buttonOptions" => array("align" => "right")); 
+			//$chartArray["series"] = $series;
+			$chartArray["xAxis"] = array("title"  => array('text'  => "Students "));
+			$chartArray["yAxis"] = array("title"  => array('text'  => "No of lectures "));
+			foreach ($students  as $student){			
+				$categoryArray[] = $student->first_name;
+				$present = 0;
+				$absent = 0;
+				#Retrieving attendance data for this month for each student
+				$attendances = Attendance::where('attendance_date', '>=', $fromDate)
+								->where('attendance_date', '<', $toDate)
+								->where('teacher_id', '=', $teacher_id)
+								->where('grade_id', '=', $grade)
+								->where('student_id', '=', $student->id)
+								->get();
+								
+				if($attendances->isEmpty() != TRUE) {						
+					foreach($attendances as $attendance){
+						//$categoris[] = $attendance->student->first_name;
+						if ($attendance->attended == 1){
+							$present = $present +1;
+						}else{
+							$absent = $absent +1;
+						}	
+					
+					}	
+				}
+				$attendanceArray[] = $present;
+			}
+		}
+		$chartArray["xAxis"] = array("categories" => $categoryArray);
+		$chartArray["series"][] = array("name" => "No of class attended", "data" => $attendanceArray); 
+		return $chartArray;
+	}
+	
 	# GET: http://localhost/teacher
     public function getIndex() {
 		$_result = $this->customize();
+		$grade = 9;
+		$attendanceChart = $this->showAttendanceChart($grade);
 		return View::make('/teacher')
 					->with('flash_message', 'Welcome to Report360!')
 					->with('photo_path', $_result[0])
 					->with('first_name', $_result[1])
-					->with('msg', $_result[2]);
+					->with('msg', $_result[2])
+					->with('chartArray', $attendanceChart);
 		
 	}
 
@@ -207,5 +266,8 @@ class TeacherController extends BaseController {
 		return Redirect::action('TeacherController@getIndex')
 					->with('flash_message', "Attendance Deleted...!!! ");
 	}
+	
+
+	
 	
 }

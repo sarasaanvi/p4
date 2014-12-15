@@ -6,7 +6,7 @@ class UserController extends BaseController {
 		# Make sure BaseController construct gets called
 		parent::__construct();
         $this->beforeFilter('guest',array('only' => array('getSignin','getSignup')));
-        
+	       
     } 
 	
 	 # GET: http://localhost/user
