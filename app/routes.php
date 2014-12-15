@@ -24,4 +24,11 @@ At the time of admission the school admin will add new student and send and emai
 per defined user name (enrolment number) to student. At the time of sign up student will set 
 the password and login to the system.
 */
+ Route::get('/test', function()
+ {
+	$today = date('Y-m-d');
+	$students = Attendance::getAttendanceList(9,$today,"T1");
+	print_r($students);
+	
+ });
 

@@ -1,0 +1,67 @@
+.logo{
+  margin: 20px;
+  *zoom: 1;
+  //text-align:center;
+  
+}
+
+.form-inline{
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  margin-bottom: 0;
+}
+.content {
+	margin: 20px;
+	padding: 20px;
+		
+}
+
+.form-image{
+	width:100px;
+	height:100px;
+	//float: right;
+	//display:block;
+}
+
+.form-span{
+	float:right;
+}
+
+.form-control-wrap{
+	width: 50%;	
+	float:left;
+	display:block;
+}
+.form-control-wrap-label{
+    width: 100px;
+    display: inline-block;
+}
+
+.search-container form,
+.search-container form {
+    display: inline;
+	float:right;
+	
+}
+
+.search-container input {
+    display: inline;
+    vertical-align: middle;
+}
+
+.edit-container form,
+.edit-container form {
+    display: inline;
+	float:left;
+	
+}
+
+.edit-container input {
+    display: inline;
+    vertical-align: middle;
+}
+
+
