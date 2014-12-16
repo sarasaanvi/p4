@@ -3,7 +3,7 @@
 	{{ Form::open(array('action' => 'TeacherController@postAddAttendance','class' => 'form-inline')) }}			
 		{{ Form::label( 'grade', 'Select Grade for Attendance  ') }}
 		<!--$gradeList is passed from Controller funtion -->
-		{{ Form::select('grade_id', $gradeList) }}		
+		{{ Form::select('grade_id', $grade_list) }}		
 	</br>
 	</br>
 	<table>

@@ -43,14 +43,7 @@
 	@else
 		<h3><span>Hello, User </span></h3>
 	@endif
-	<span class="search-container">
-				<form action="/searchStudent">
-					<input type="text" onClick="this.value='';" onFocus="this.select()" onBlur="this.value=!this.value?'Enter Student Name':this.value;" value="Search Student">
-					<input type="submit" id="submit" value="submit">
-				</form>				
-	</span>
 	<br>
-	<br>
-	<br>
+	
 	@yield('content')
 @stop

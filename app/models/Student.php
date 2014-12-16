@@ -66,6 +66,22 @@ class Student extends Eloquent {
 		} 
 	}
 	
+	public static function getStudentList($grade_id) {
+		#Fetching all the students from students table and showing 
+		$students =Student::where('grade_id','=',$grade_id)
+			->get(array('id', 'first_name','grade_id','last_name'));
+		$StudentList = array();
+		$StudentList[]= "Select";
+		if($students->isEmpty() != TRUE) {
+			foreach($students as $student) {
+				 $StudentList[$student->id] = $student->last_name . "," .$student->first_name;
+			}
+		}
+		return $StudentList;
+		 
+		
+	}
+	
 	
 	
 	#Get today's Attendance summary

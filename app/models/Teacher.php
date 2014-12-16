@@ -35,15 +35,15 @@ class Teacher extends Eloquent {
 		$teacher = Teacher::where('user_name', '=', $user_name)
 				->first();
 		# If we found the user, then return it's account type
-		if($teacher->isEmpty() != TRUE) {
+		//if($teacher->isEmpty() != TRUE) {
 			# Get the Grades from this Teacher using the "grades" dynamic property
 			# The name "grades" corresponds to the the relationship method defined in the above in model
-			$grades = $book->grades; 
+			$grades = $teacher->grades; 
 			$teacherGrades = array();
 			foreach($grades as $grade) {
 				 $teacherGrades[$grade->id] = $grade->grade;
 			}
-		}
+		//}
 		return $teacherGrades;
 	}
 	

@@ -1,14 +1,22 @@
 <?php
 use Ob\HighchartsBundle\Highcharts\Highchart;
 class TeacherController extends BaseController {
-		
+	private $teacher_id = 0;
+	private $today = "2014-01-12";
+	
 	public function __construct() {
 		# Make sure BaseController construct gets called
 		parent::__construct();           
 		
 		$this->beforeFilter('auth');
+		$user_name = Session::get('user_name');
+		$teacher = Teacher::getTeacherRecord($user_name);
+		$this->teacher_id = $teacher->id;
+		$this->today = date('Y-m-d');
+		
 
     } 
+	//private $teacher = Teacher::getTeacherRecord(Session::get('user_name'));
 	
 		
 	private function customize(){
@@ -16,29 +24,33 @@ class TeacherController extends BaseController {
 		//echo $user_name;
 		$photo_path = "/imgData/defaltImage.jpg";
 		$first_name = "User";
+		$gradeList =array();
 		if ($user_name) {
-			$teacher = Teacher::getTeacherRecord($user_name);			
+			$teacher = Teacher::getTeacherRecord($user_name);
+			#$this->teacher_id = $teacher-id;
+			#Getting List of Grade which belongs to this Teacher
+			$gradeList = Teacher::getTeacherGrades($user_name);
 			if ($teacher) {
 				//print_r($teacher);
-				 $first_name = $teacher->first_name;
+				$first_name = $teacher->first_name;
 				if ($teacher->photo_path){
 					$photo_path = $teacher->photo_path;
 				} 					
-				return array($photo_path ,$first_name,"") ;
+				return array($photo_path ,$first_name,$gradeList,"") ;
 							#->with('class', $class);
 			}else {
 				$msg = "Teacher Record for user name  " . $user_name . " was not found. Please contact Administrator ";
-				return array($photo_path ,$first_name,$msg) ;
+				return array($photo_path ,$first_name,$gradeList,$msg) ;
 			}
 		} else {
 			$msg= "Error..Please contact your admin ";
-			return array($photo_path ,$first_name,$msg) ;
+			return array($photo_path ,$first_name,$gradeList,$msg) ;
 		}
 	
 	}
 	
 	#Plot attendance chart
-		public function showAttendanceChart($grade) {
+	public function showAttendanceChart($grade) {
 		//$grade = Session::get('grade_id');
 		$toDate  = date('Y-m-d');
 		$m  = date('m');
@@ -47,17 +59,17 @@ class TeacherController extends BaseController {
 		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
 		$teacher_id = $teacher->id;
 		$error_msg = "";
+		
+		#Setting Chart properties
+		$chartArray["chart"] = array("type" => "column"); 
+		$chartArray["title"] = array("text" => "Attendance for Grade ". $grade); 
+		$chartArray["credits"] = array("enabled" => true); 
+		$chartArray["navigation"] = array("buttonOptions" => array("align" => "right")); 
+		$chartArray["xAxis"] = array("title"  => array('text'  => "Students "));
+		$chartArray["yAxis"] = array("title"  => array('text'  => "No of lectures "));
 		#Getting List of all the student in a grade
 		$students = Student::getClass($grade);
-		if($students->isEmpty() != TRUE) {	
-			#Setting Chart properties
-			$chartArray["chart"] = array("type" => "column"); 
-			$chartArray["title"] = array("text" => "Attendance for Grade ". $grade); 
-			$chartArray["credits"] = array("enabled" => true); 
-			$chartArray["navigation"] = array("buttonOptions" => array("align" => "right")); 
-			//$chartArray["series"] = $series;
-			$chartArray["xAxis"] = array("title"  => array('text'  => "Students "));
-			$chartArray["yAxis"] = array("title"  => array('text'  => "No of lectures "));
+		if($students) {				
 			foreach ($students  as $student){			
 				$categoryArray[] = $student->first_name;
 				$present = 0;
@@ -83,32 +95,84 @@ class TeacherController extends BaseController {
 				}
 				$attendanceArray[] = $present;
 			}
+		}else{
+			$categoryArray[] = "No Student";
+			$attendanceArray[] =0;
 		}
 		$chartArray["xAxis"] = array("categories" => $categoryArray);
+		#$chartArray["yAxis"] = array("categories" => $number = range(0,31));
 		$chartArray["series"][] = array("name" => "No of class attended", "data" => $attendanceArray); 
 		return $chartArray;
 	}
 	
 	# GET: http://localhost/teacher
     public function getIndex() {
+		$grade = 0; # Setting invalid grade					
+		$attendanceChart = array();
+		$student_list =array();
 		$_result = $this->customize();
-		$grade = 9;
-		$attendanceChart = $this->showAttendanceChart($grade);
-		return View::make('/teacher')
-					->with('flash_message', 'Welcome to Report360!')
-					->with('photo_path', $_result[0])
-					->with('first_name', $_result[1])
-					->with('msg', $_result[2])
-					->with('chartArray', $attendanceChart);
+		#if grade list found for Teacher
+		if ($_result[2]) {
+			$grade = array_values($_result[2])[0]; # Getting first element of the gradelist at Initial time
+			#Setting Grade in session for other Controllers Method 
+			Session::put('grade_id', $grade);
+			#get the list of student for this class
+			$student_list = Student::getStudentList($grade);
+			if (sizeof($student_list) == 1) {
+				$msg = "No Student Enrolled for this class";
+			}
+			$attendanceChart = $this->showAttendanceChart($grade);		
+			return View::make('/teacher')
+				->with('flash_message', 'Welcome to Report360!')
+				->with('photo_path', $_result[0])
+				->with('first_name', $_result[1])
+				->with('grade_list', $_result[2])
+				->with('student_list', $student_list)
+				->with('msg', $_result[3])
+				->with('chartArray', $attendanceChart);
+				
+			} 		
+	}
+	
+	# POST: http://localhost/teacher
+    public function postIndex() {
+		$attendanceChart = array();
+		$_result = $this->customize();		
+		$grade = Input::get('grade_id'); #Search student on the home page
+		#Searched student on the home page
+		if( Input::get('student_id')){
+			#Make a Student view
+			return "Show Student Record";
+		}else{		
+			#selected a different Grade 
+			$grade = Input::get('grade_id');
+			#Setting Grade in session for other Controllers Method 
+			Session::put('grade_id', $grade);
+			#get the list of student for this class
+			$student_list = Student::getStudentList($grade);
+			if (sizeof($student_list) == 1) {
+				$msg = "No Student Enrolled for this class";
+			}
+			$attendanceChart = $this->showAttendanceChart($grade);
+			return View::make('/teacher')
+				->with('flash_message', 'Welcome to Report360!')
+				->with('photo_path', $_result[0])
+				->with('first_name', $_result[1])
+				->with('grade_list', $_result[2])
+				->with('student_list', $student_list)
+				->with('msg', $_result[3])
+				->with('chartArray', $attendanceChart);
 		
+		}
 	}
 
     # GET: http://localhost/teacher/add-attendance
-    public function getAddAttendance() {
+     public function getAddAttendance() {
 		#Getting the list of grades from the grades table
 		$_result = $this->customize();		
-		$gradeList=Grade::getGrades();
-		$grade = 9; #will take first value from the gradeList
+		if ($_result[2]) {
+			$grade = array_values($_result[2])[0]; # Getting first element of the gradelist at Initial time #will take first value from the gradeList
+		}
 		Session::put('grade_id', $grade);
 		$students =Student::getClass($grade);
 		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
@@ -120,13 +184,13 @@ class TeacherController extends BaseController {
 			return View::make('add-attendance')
 				->with('photo_path', $_result[0])
 				->with('first_name', $_result[1])
-				->with('gradeList',$gradeList)
+				->with('grade_list',$_result[2])
 				->with('studentList',$students);
 		} else {
 			return Redirect::action('TeacherController@getShowAttendance');
 		}
     }
-	# POST: http://localhost/teacher/add-attendance
+# POST: http://localhost/teacher/add-attendance
     public function postAddAttendance() {
 		$_result = $this->customize();	
 		$grade =Input::get('grade_id');
