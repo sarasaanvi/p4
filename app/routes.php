@@ -13,9 +13,8 @@
  Route::get('/test', function()
  {
 	#Getting List of Grade which belongs to this Teacher
-	$student_list = Student::getStudentList(10);
-	print_r($student_list);		
-	echo sizeof($student_list);
+	$exam = Exam::getIdForExam('Quiz');
+	echo $exam;
 	
 	
  });

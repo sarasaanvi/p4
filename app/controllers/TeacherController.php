@@ -13,6 +13,7 @@ class TeacherController extends BaseController {
 		$teacher = Teacher::getTeacherRecord($user_name);
 		$this->teacher_id = $teacher->id;
 		$this->today = date('Y-m-d');
+		$this->subject_list =array("Subject 1","Subject 2","Subject 3","Subject 4","Subject 5");
 		
 
     } 
@@ -107,9 +108,6 @@ class TeacherController extends BaseController {
 	
 	# GET: http://localhost/teacher
     public function getIndex() {
-		$grade = 0; # Setting invalid grade					
-		$attendanceChart = array();
-		$student_list =array();
 		$_result = $this->customize();
 		#if grade list found for Teacher
 		if ($_result[2]) {
@@ -118,51 +116,70 @@ class TeacherController extends BaseController {
 			Session::put('grade_id', $grade);
 			#get the list of student for this class
 			$student_list = Student::getStudentList($grade);
-			if (sizeof($student_list) == 1) {
+			if (sizeof($student_list) == 1){
 				$msg = "No Student Enrolled for this class";
-			}
-			$attendanceChart = $this->showAttendanceChart($grade);		
-			return View::make('/teacher')
-				->with('flash_message', 'Welcome to Report360!')
-				->with('photo_path', $_result[0])
-				->with('first_name', $_result[1])
-				->with('grade_list', $_result[2])
-				->with('student_list', $student_list)
-				->with('msg', $_result[3])
-				->with('chartArray', $attendanceChart);
-				
-			} 		
+				return View::make('teacher-nodata') #Make view without any graph an charts
+					->with('flash_message', 'Welcome to Report360!')
+					->with('photo_path', $_result[0])
+					->with('first_name', $_result[1])
+					->with('grade_list', $_result[2])
+					->with('student_list', array()) #blank student list
+					->with('msg', $msg);
+					#->withInput();
+			} else{
+				$attendanceChart = $this->showAttendanceChart($grade);	
+				$msg = "Over all Class performance for Grade " . $grade;
+				return View::make('/teacher')
+					->with('flash_message', 'Welcome to Report360!')
+					->with('photo_path', $_result[0])
+					->with('first_name', $_result[1])
+					->with('grade_list', $_result[2])
+					->with('student_list', $student_list)
+					->with('msg', $msg)
+					->with('chartArray', $attendanceChart);				
+			} 
+		}
 	}
 	
 	# POST: http://localhost/teacher
     public function postIndex() {
 		$attendanceChart = array();
 		$_result = $this->customize();		
-		$grade = Input::get('grade_id'); #Search student on the home page
-		#Searched student on the home page
+		$grade = Input::get('grade_id'); 
+		# User pressed "Search student" button on the home page
 		if( Input::get('student_id')){
 			#Make a Student view
 			return "Show Student Record";
 		}else{		
-			#selected a different Grade 
+			#User selected a different Grade on the Home page
 			$grade = Input::get('grade_id');
 			#Setting Grade in session for other Controllers Method 
 			Session::put('grade_id', $grade);
 			#get the list of student for this class
 			$student_list = Student::getStudentList($grade);
-			if (sizeof($student_list) == 1) {
-				$msg = "No Student Enrolled for this class";
-			}
-			$attendanceChart = $this->showAttendanceChart($grade);
-			return View::make('/teacher')
-				->with('flash_message', 'Welcome to Report360!')
-				->with('photo_path', $_result[0])
-				->with('first_name', $_result[1])
-				->with('grade_list', $_result[2])
-				->with('student_list', $student_list)
-				->with('msg', $_result[3])
-				->with('chartArray', $attendanceChart);
-		
+			if (sizeof($student_list) == 1){
+				$msg = "No Student Enrolled for this grade " . $grade;
+				//print_r(Input::all());
+				return View::make('teacher-nodata') #Make view without any graph an charts
+					->with('flash_message', 'Welcome to Report360!')
+					->with('photo_path', $_result[0])
+					->with('first_name', $_result[1])
+					->with('grade_list', $_result[2])
+					->with('student_list', array()) #blank student list
+					->with('msg', $msg);
+					#->withInput();
+			}else{
+				$attendanceChart = $this->showAttendanceChart($grade);
+				$msg = "Over all Class performance for Grade " . $grade;
+				return View::make('/teacher')
+					->with('flash_message', 'Welcome to Report360!')
+					->with('photo_path', $_result[0])
+					->with('first_name', $_result[1])
+					->with('grade_list', $_result[2])
+					->with('student_list', $student_list)
+					->with('msg', $msg)
+					->with('chartArray', $attendanceChart);				
+			} 
 		}
 	}
 
@@ -331,7 +348,70 @@ class TeacherController extends BaseController {
 					->with('flash_message', "Attendance Deleted...!!! ");
 	}
 	
-
+##############################################################################################
+#Marks 
+##############################################################################################
 	
+	# GET: http://localhost/teacher/param-marks
+     public function getParamMarks() {
+		#Getting the list of grades from the grades table
+		$_result = $this->customize();	
+		#Getting List of Exams
+		$exam_list = Exam::getExamList();
+		return View::make('param-marks')
+				->with('photo_path', $_result[0])
+				->with('first_name', $_result[1])
+				->with('grade_list',$_result[2])
+				->with('exam_list',$exam_list)
+				->with('subject_list',$this->subject_list);
+				
+	} 
+		
+	# POST: http://localhost/teacher/param-marks
+    public function postParamMarks() {
+		$_result = $this->customize();	
+		$grade =Input::get('grade_id');
+		$exam_list = Exam::getExamList();
+		$exam = $exam_list[Input::get('exam_id')];
+		$subject =$this->subject_list[Input::get('subject_id')];
+		$student_list = Student::getStudentList($grade);
+		if (sizeof($student_list) == 1) {
+			$msg = "No Student Enrolled for this class";
+		}
+		unset($student_list[0]);
+		return View::make('add-marks')
+				->with('photo_path', $_result[0])
+				->with('first_name', $_result[1])
+				->with('grade_id',$grade)
+				->with('exam',$exam)
+				->with('subject',$subject)
+				->with('exam_date',Input::get('exam_date'))
+				->with('student_list',$student_list);
+	}
 	
+	# POST: http://localhost/teacher/add-marks
+    public function postAddMarks() {
+		$Inputs =Input::all();
+		#Get Exam Key from the Exam 
+		$exam_id = $exam = Exam::getIdForExam(Input::get('exam'));
+		foreach($Inputs as $key => $value){
+			if (preg_match('/\d+/', $key)){				
+					$mark = new Mark;
+					$mark->student_id = $key;
+					if ($value == 'Enter Marks'){ # Marks not Added
+						$mark->mark_obtained = 0;
+					}else{
+						$mark->mark_obtained = (int)$value;
+					}
+					$mark->subject = Input::get('subject');
+					$mark->exam_id = $exam_id;
+					$mark->exam_date =Input::get('exam_date');
+					$mark->teacher_id = $this->teacher_id;
+					$mark->save();			
+				}
+		}
+		return Redirect::action('TeacherController@getIndex')->with('flash_message', 'Marks Added ');
+	}
+	
+	   
 }

@@ -1,23 +1,17 @@
 @extends('_base')
 @section('sidebar_content')
-	<ul>
+	<ul>		
 		<li>
-			<a href="\studentProfile">Edit Student Profile</a>
+			<a href='/teacher/param-marks'>Add Marks</a>	
 		</li>
-		<li>
-			<a href='/teacher/add-mark'>Add Marks</a>	
-		</li>
-		<li class="selected">
+		<li >
 			<a href='/teacher/add-attendance'>Add attendance</a>	
 		</li>
 		<li>
-			<a href="\achievementsAdd">Add Achievements</a>
+			<a href='/teacher/add-achievements'>Add Achievements</a>
 		</li>
 		<li>
-			<a href="\attendanceAdd">View Class Performance</a>
-		</li>
-		<li>
-			<a href="\teacherProfile">View my Profile </a>
+			<a href="/teacher/teacherProfile">View Profile </a>
 		</li>
 	</ul>
 @stop
@@ -43,7 +37,5 @@
 	@else
 		<h3><span>Hello, User </span></h3>
 	@endif
-	<br>
-	
-	@yield('content')
+		@yield('content')
 @stop

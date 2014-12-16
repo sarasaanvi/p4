@@ -15,18 +15,18 @@ class CreateMarksTable extends Migration {
 		//Creating login table
 		Schema::create('marks',function($table){
 			$table->increments('id');			
-			$table->string('subject1');	
-			$table->string('subject2');	
-			$table->string('subject3');	
-			$table->string('subject4');	
-			$table->string('subject5');				
+			$table->string('subject');	
 			$table->date('exam_date');
+			$table->integer('mark_obtained');
+			$table->integer('teacher_id')->unsigned(); #Marks are entered by this Teacher
 			$table->integer('exam_id')->unsigned();
 			$table->integer('student_id')->unsigned();
+			
 			
 			# Define foreign keys...
 			$table->foreign('exam_id')->references('id')->on('exams');
 			$table->foreign('student_id')->references('id')->on('students');
+			$table->foreign('teacher_id')->references('id')->on('teachers');
 		});
 	}
 

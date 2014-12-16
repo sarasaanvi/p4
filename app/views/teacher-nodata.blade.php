@@ -15,27 +15,8 @@
 				{{ Form::close() }}
 	</span>
 	<br>
-	<br>	
+	<br>
 	@if (isset($msg))
 		<h2>{{ $msg }}</h2>
-	@endif
-	<br>
-	@if (isset($chartArray))
-		@section('javascript')
-			<script src="<?php public_path();?>/js/jquery.min.js" type="text/javascript"></script>
-			<script src="<?php public_path();?>/js/highcharts.js"></script>
-			<script src="<?php public_path();?>/js/exporting.js"></script>	
-		@stop
-		<p id="container" class="graphs" </p>
-		<script type="text/javascript">
-				$(function() {
-				  $('#container').highcharts(
-					{{json_encode($chartArray)}}
-				  )
-				});
-		</script>	
-	@endif
+	@endif	
 @stop
-
-
-		

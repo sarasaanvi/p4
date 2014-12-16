@@ -54,6 +54,38 @@ class Report360Seeder extends Seeder {
 			$grade->timestamps = false;
 			$grade->save();
 		} 
+		
+	#Adding Exams  
+		$exam = new Exam;
+		$exam->exam = "Exam 1";
+		$exam->full_marks = 100;
+		$exam->passing_marks =70;
+		$exam->save();
+		
+		$exam = new Exam;
+		$exam->exam = "Exam 2";
+		$exam->full_marks = 50;
+		$exam->passing_marks =30;
+		$exam->save();
+		
+		$exam = new Exam;
+		$exam->exam = "Exam 3";
+		$exam->full_marks = 23;
+		$exam->passing_marks =15;
+		$exam->save();
+		
+		$exam = new Exam;
+		$exam->exam = "Quiz";
+		$exam->full_marks = 25;
+		$exam->passing_marks =15;
+		$exam->save();
+		
+		$exam = new Exam;
+		$exam->exam = "Assignments";
+		$exam->full_marks = 100;
+		$exam->passing_marks =60;
+		$exam->save();
+		 
 
 
 	

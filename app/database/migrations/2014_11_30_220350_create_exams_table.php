@@ -17,7 +17,7 @@ class CreateExamsTable extends Migration {
 			$table->increments('id');
 			$table->string('exam');			
 			$table->integer('full_marks');
-			$table->string('passing_criteria');			
+			$table->integer('passing_marks');			
 			
 		});
 	}
