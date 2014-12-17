@@ -62,41 +62,11 @@ class UserController extends BaseController {
 			#create home page based on the account Type
 			$AccType = User::getAccountType($user_name);
 			if ($AccType == "Student"){
-				#Fetch Student data
-				$student = Student::getStudentRecord($user_name);
-				if ($student != "Not Found") {
-					if ($student->photo_path){
-						$photo_path = $student->photo_path;
-					} else{
-						$photo_path = "/imgData/defaltImage.jpg";
-					}						
-					return View::make('/student')
-						->with('flash_message', 'Welcome to Report360!')
-						->with('photo_path', $photo_path)
-						->with('first_name', $student->first_name);
-						#->with('class', $class);
-				}else {
-					return "Student Record for user name  " . $user_id . " was not found. Please contact Administrator ";
-				}
-				#return Redirect::to('/student')->with('flash_message', 'Welcome to Report360!');
+				#Fetch Teacher's Home page
+				return Redirect::action('StudentController@getIndex');				
 			}elseif ($AccType  == "Teacher"){
 				#Fetch Teacher's Home page
 				return Redirect::action('TeacherController@getIndex');
-				//$teacher = Teacher::getTeacherRecord($user_name);
-				// if ($teacher != "Not Found") {
-					// if ($teacher->photo_path){
-						// $photo_path = $teacher->photo_path;
-					// } else{
-						// $photo_path = "/imgData/defaltImage.jpg";
-					// }						
-					// return View::make('/teacher')
-						// ->with('flash_message', 'Welcome to Report360!')
-						// ->with('photo_path', $photo_path)
-						// ->with('first_name', $teacher->first_name);
-						// #->with('class', $class);
-				// }else {
-					// return "Teacher Record for user name  " . $user_id . " was not found. Please contact Administrator ";
-				// }
 			}elseif ($AccType == "Admin"){
 				return Redirect::to('/admin')->with('flash_message', 'Welcome to Report360!');
 			}else{

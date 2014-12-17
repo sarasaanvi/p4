@@ -10,8 +10,7 @@ class TeacherController extends BaseController {
 		
 		$this->beforeFilter('auth');
 		$user_name = Session::get('user_name');
-		$teacher = Teacher::getTeacherRecord($user_name);
-		$this->teacher_id = $teacher->id;
+		//$this->teacher_id = 0;
 		$this->today = date('Y-m-d');
 		$this->subject_list =array("Subject1","Subject2","Subject3","Subject4","Subject5");
 		
@@ -28,7 +27,7 @@ class TeacherController extends BaseController {
 		$gradeList =array();
 		if ($user_name) {
 			$teacher = Teacher::getTeacherRecord($user_name);
-			#$this->teacher_id = $teacher-id;
+			//$this->teacher_id = $teacher->id;
 			#Getting List of Grade which belongs to this Teacher
 			$gradeList = Teacher::getTeacherGrades($user_name);
 			if ($teacher) {
@@ -433,6 +432,8 @@ class TeacherController extends BaseController {
 		$Inputs =Input::all();
 		#Get Exam Key from the Exam 
 		$exam_id = $exam = Exam::getIdForExam(Input::get('exam'));
+		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
+		$teacher_id = $teacher->id;
 		foreach($Inputs as $key => $value){
 			if (preg_match('/\d+/', $key)){				
 					$mark = new Mark;
@@ -445,7 +446,7 @@ class TeacherController extends BaseController {
 					$mark->subject = Input::get('subject');
 					$mark->exam_id = $exam_id;
 					$mark->exam_date =Input::get('exam_date');
-					$mark->teacher_id = $this->teacher_id;
+					$mark->teacher_id = $teacher_id;
 					$mark->save();			
 				}
 		}

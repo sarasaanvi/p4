@@ -33,19 +33,15 @@ class Student extends Eloquent {
 		}
 		return $roll;
 	}
-	public static function getStudentRecord1($user_name) {
-		$student = Student::where('user_name', '=', $user_name)->first();
-		 # If we found the user, then return it's account type
-		if($student) {
-			return $student;
-		} 
-		else{
-			return "Not Found";
-		}
+	public static function getStudentData($user_name) {
+		$student = Student::where('user_name', '=', $user_name)
+				->first();
+		
+		return $student;
 	}
 	#fetch whole record for student with student id
 	public static function getStudentRecord($id) {
-		$student = Student::find(1);
+		$student = Student::find($id);
 		if($student) {
 			// echo $student->first_name;
 			// echo "<br>";

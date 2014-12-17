@@ -31,7 +31,7 @@ Route::get('/', 'UserController@getSignin');
 Route::controller('user','UserController');
 Route::controller('teacher','TeacherController');
 Route::controller('admin','AdminController');
-Route::resource('student', 'StudentController');
+Route::controller('student', 'StudentController');
 /*
 Administrator is responsible to add/edit/delete  student and Teacher data. 
 At the time of admission the school admin will add new student and send and email specifying the
