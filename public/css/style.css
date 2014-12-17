@@ -740,15 +740,17 @@ a img {
 	display:block;
 	//border: 5px solid red;
 }
-.graphs{
-	
-	//height:40%;
-	//width:40%;
+
+.graphs{	
+	height:40%;
+	width:40%;
 	float: left;
 	//margin:10px;
-	display:block;
+	display:inline;
 	//border: 5px solid red;
-	min-width: 400px; height: 400px; margin: 0 auto;
+	min-width: 50%;
+	height: 400px; margin: 0 auto;
+	
 }
 
 .Auth{

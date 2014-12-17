@@ -1,6 +1,9 @@
 @extends('_base')
 @section('sidebar_content')
-	<ul>		
+	<ul>	
+		<li>
+			<a href='/teacher/'>Home</a>	
+		</li>
 		<li>
 			<a href='/teacher/param-marks'>Add Marks</a>	
 		</li>
@@ -11,7 +14,7 @@
 			<a href='/teacher/add-achievements'>Add Achievements</a>
 		</li>
 		<li>
-			<a href="/teacher/teacherProfile">View Profile </a>
+			<a href="/teacher/teacher-profile">View Profile </a>
 		</li>
 	</ul>
 @stop

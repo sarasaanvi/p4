@@ -13,7 +13,7 @@ class TeacherController extends BaseController {
 		$teacher = Teacher::getTeacherRecord($user_name);
 		$this->teacher_id = $teacher->id;
 		$this->today = date('Y-m-d');
-		$this->subject_list =array("Subject 1","Subject 2","Subject 3","Subject 4","Subject 5");
+		$this->subject_list =array("Subject1","Subject2","Subject3","Subject4","Subject5");
 		
 
     } 
@@ -63,11 +63,16 @@ class TeacherController extends BaseController {
 		
 		#Setting Chart properties
 		$chartArray["chart"] = array("type" => "column"); 
-		$chartArray["title"] = array("text" => "Attendance for Grade ". $grade); 
+		$chartArray["title"] = array("text" => "Attendance "); 
 		$chartArray["credits"] = array("enabled" => true); 
 		$chartArray["navigation"] = array("buttonOptions" => array("align" => "right")); 
 		$chartArray["xAxis"] = array("title"  => array('text'  => "Students "));
-		$chartArray["yAxis"] = array("title"  => array('text'  => "No of lectures "));
+		#$range = range(0,31);
+		#$chartArray["yAxis"] = array("title"  => array('text'  => "No of lecture "));# , "labels" => $range );
+		
+		//$chartArray["yAxis"] = array("title" => $number = range(0,31));
+		
+		
 		#Getting List of all the student in a grade
 		$students = Student::getClass($grade);
 		if($students) {				
@@ -100,9 +105,39 @@ class TeacherController extends BaseController {
 			$categoryArray[] = "No Student";
 			$attendanceArray[] =0;
 		}
-		$chartArray["xAxis"] = array("categories" => $categoryArray);
-		#$chartArray["yAxis"] = array("categories" => $number = range(0,31));
+		$chartArray["xAxis"] = array("categories" => $categoryArray);		
 		$chartArray["series"][] = array("name" => "No of class attended", "data" => $attendanceArray); 
+		return $chartArray;
+	}
+	
+	#Plot attendance chart
+	#public function showMarksChart($grade,$exam_date,$subject,$exam) {
+	public function showMarksChart($grade) {
+		// #Setting Chart properties
+		$chartArray["chart"] = array("type" => "spline"); 		
+		$chartArray["title"] = array("text" => "Academic performance ");
+		$chartArray["subtitle "] = array("text" => " Subject wise performance in each exam ");		
+		//$chartArray["credits"] = array("enabled" => true); 
+		$chartArray["navigation"] = array("buttonOptions" => array("align" => "right")); 
+		$chartArray["xAxis"] = array("title"  => array('text'  => "Exams "));
+		$chartArray["yAxis"] = array("title"  => array('text'  => "Marks Obtained "));
+		#Getting List of Exams
+		$exam_list = Exam::getExamList();
+		$chartArray["xAxis"] = array("categories" => $this->subject_list);
+		#Getting List of all the student in a grade
+		$academics = Student::getAcademicForGrade($grade);	
+		$series = array();	
+		if($academics) {			
+			foreach ($academics  as $key => $value){
+				$dataseries = array();
+				$dataseries["name"] = "' " . $exam_list[$key] .  "' ";
+				$dataseries["data"] = $value["data"];
+				$chartArray["series"][] = $dataseries;
+			}
+			return $chartArray;
+		}else{
+			$chartArray= array();
+		}
 		return $chartArray;
 	}
 	
@@ -127,7 +162,8 @@ class TeacherController extends BaseController {
 					->with('msg', $msg);
 					#->withInput();
 			} else{
-				$attendanceChart = $this->showAttendanceChart($grade);	
+				$attendanceChart = $this->showAttendanceChart($grade);
+				$marksChart = $this->showMarksChart($grade);
 				$msg = "Over all Class performance for Grade " . $grade;
 				return View::make('/teacher')
 					->with('flash_message', 'Welcome to Report360!')
@@ -136,7 +172,8 @@ class TeacherController extends BaseController {
 					->with('grade_list', $_result[2])
 					->with('student_list', $student_list)
 					->with('msg', $msg)
-					->with('chartArray', $attendanceChart);				
+					->with('chartArray', $attendanceChart)
+					->with('marksArray', $marksChart);				
 			} 
 		}
 	}
@@ -170,6 +207,7 @@ class TeacherController extends BaseController {
 					#->withInput();
 			}else{
 				$attendanceChart = $this->showAttendanceChart($grade);
+				$marksChart = $this->showMarksChart($grade);
 				$msg = "Over all Class performance for Grade " . $grade;
 				return View::make('/teacher')
 					->with('flash_message', 'Welcome to Report360!')
@@ -178,7 +216,8 @@ class TeacherController extends BaseController {
 					->with('grade_list', $_result[2])
 					->with('student_list', $student_list)
 					->with('msg', $msg)
-					->with('chartArray', $attendanceChart);				
+					->with('chartArray', $attendanceChart)
+					->with('marksArray', $marksChart);;				
 			} 
 		}
 	}
@@ -412,6 +451,19 @@ class TeacherController extends BaseController {
 		}
 		return Redirect::action('TeacherController@getIndex')->with('flash_message', 'Marks Added ');
 	}
+	# GET: http://localhost/teacher/teacher-profile
+     public function getTeacherProfile() {
+		#Getting the list of grades from the grades table
+		$_result = $this->customize();	
+		$user_name = Session::get('user_name');
+		$teacher = Teacher::getTeacherRecord($user_name);
+		return View::make('teacher-profile')
+				->with('photo_path', $_result[0])
+				->with('first_name', $_result[1])
+				->with('grade_list',$_result[2])
+				#->with('exam_list',$exam_list)
+				->with('teacher',$teacher);
+				
+	} 
 	
-	   
 }

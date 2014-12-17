@@ -29,7 +29,20 @@ class Mark extends Eloquent {
         # Define an inverse one-to-many relationship.
         return $this->belongsTo('Teacher');
     }
-
+	 
+	public static function getMarksExams($exam_id) {
+		$marks =Mark::where('exam_id','=',$exam_id)
+				->with('student','exam')
+				->get();
+		if($marks->isEmpty() != TRUE) {
+			foreach($marks as $mark) {
+				echo $mark->student->first_name;
+				echo $mark->exam->exam;
+				echo $mark->subject;
+				echo "<br>";
+			}
+		}
+    }
 	
 
 }

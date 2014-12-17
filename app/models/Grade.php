@@ -38,6 +38,8 @@ class Grade extends Eloquent {
 	
 	
 	
+	
+	
 	/*
 	This function will gets all Sections for each Grade and return list of section for each Grade
 	*/

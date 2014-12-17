@@ -10,14 +10,21 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
- Route::get('/test', function()
- {
-	#Getting List of Grade which belongs to this Teacher
-	$exam = Exam::getIdForExam('Quiz');
-	echo $exam;
+
+Route::get('/test', 'TeacherController@getTest');
+ // Route::get('/test', function()
+ // {
+	// #Getting List of Grade which belongs to this Teacher
+	// //Student::getStudentRecord(1);
+	// echo "<br>";
+	// #echo Student::getStudentRecord(2);
+	// $data = Student::getAcademicForGrade(9);
+	// foreach($data as $d){
+		// print_r($d);
+		// echo "<br>";
+	// }
 	
-	
- });
+ // });
 
 
 Route::get('/', 'UserController@getSignin');

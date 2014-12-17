@@ -11,13 +11,13 @@ class Student extends Eloquent {
 	// Disabling use of "created_at" and "updated_at" columns:
 	public $timestamps = false;
 	
-	public function mark() {
+	public function marks() {
         # Student has many Marks
         # Define a one-to-many relationship.
         return $this->hasMany('Mark');
     }
 	
-	public function attendance() {
+	public function attendances() {
         # Student has many Marks
         # Define a one-to-many relationship.
         return $this->hasMany('Attendance');
@@ -33,17 +33,129 @@ class Student extends Eloquent {
 		}
 		return $roll;
 	}
-	public static function getStudentRecord($user_name) {
+	public static function getStudentRecord1($user_name) {
 		$student = Student::where('user_name', '=', $user_name)->first();
 		 # If we found the user, then return it's account type
 		if($student) {
-			#echo $user;
 			return $student;
 		} 
 		else{
 			return "Not Found";
 		}
 	}
+	#fetch whole record for student with student id
+	public static function getStudentRecord($id) {
+		$student = Student::find(1);
+		if($student) {
+			// echo $student->first_name;
+			// echo "<br>";
+			
+			// foreach($student->marks as $mark) {
+				// echo $mark;
+				// echo "<br>";
+			// }
+			// foreach($student->attendances as $attendance) {
+				// echo $attendance;
+				// echo "<br>";
+			// }
+			//return $student;
+		}else{
+			return "Not Found";
+		}
+	}
+	
+	public static function getAcademicForGrade($grade){
+		$students =Student::where('grade_id','=',$grade)
+			->get(array('id', 'first_name','grade_id','last_name'));
+		//$academics = array();	
+		if($students->isEmpty() != TRUE) {
+			$exams = array();	
+			$unknownSubject =0;
+			$total =0;
+			$exam_list = Exam::getExamList();			
+			foreach($exam_list as $key => $value){
+				$subject = array("total" => 0,"data" => array(0,0,0,0,0));
+				$total =0;
+				foreach($students as $student){
+					$StudentRecord = Student::getStudentRecord($student->id);
+					foreach($student->marks as $mark) {						
+						if ($mark->exam_id == $key ){
+							if ($mark->subject == "Subject1" ){
+								$subject["data"][0] = $subject["data"][0] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject2" ){
+								$subject["data"][1] = $subject["data"][1] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject3" ){
+								$subject["data"][2] = $subject["data"][2] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject4" ){
+								$subject["data"][3] = $subject["data"][3] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject5" ){
+								$subject["data"][4] = $subject["data"][4] + $mark->mark_obtained;
+							}else{
+								$unknownSubject = $unknownSubject + $mark->mark_obtained;
+							}							
+							$subject["total"] = $subject["total"] + $mark->mark_obtained;
+						}	
+					}
+					
+				}
+				//$academics[$student->id] = $exams;
+				$exams[$key] = $subject;
+				#print_r($exams);
+				//echo "<br>";
+			}
+			return $exams;	
+		}
+	}
+	
+	
+	#Calculate the total marks for all the stidents in a Grade
+	public static function getAcademicForStudent($grade){
+		$students =Student::where('grade_id','=',$grade)
+			->get(array('id', 'first_name','grade_id','last_name'));
+		$academics = array();	
+		if($students->isEmpty() != TRUE) {			
+			foreach($students as $student){
+				$StudentRecord = Student::getStudentRecord($student->id);
+				//echo "student name : ". $student->first_name;
+				//echo "<br>";				
+				$exams = array();	
+				$unknownSubject =0;
+				$total =0;
+				$exam_list = Exam::getExamList();
+				foreach($exam_list as $key => $value){
+					$subject = array("total" => 0,"data" => array(0,0,0,0,0));
+					$total =0;
+					foreach($student->marks as $mark) {						
+						if ($mark->exam_id == $key ){
+							if ($mark->subject == "Subject1" ){
+								$subject["data"][0] = $subject["data"][0] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject2" ){
+								$subject["data"][1] = $subject["data"][1] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject3" ){
+								$subject["data"][2] = $subject["data"][2] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject4" ){
+								$subject["data"][3] = $subject["data"] + $mark->mark_obtained;
+							}elseif ($mark->subject == "Subject5" ){
+								$subject["data"] = $subject["data"] + $mark->mark_obtained;
+							}else{
+								$unknownSubject = $unknownSubject + $mark->mark_obtained;
+							}							
+							$subject["total"] = $subject["total"] + $mark->mark_obtained;
+						}	
+					}
+					$exams[$key] = $subject;
+				}
+				$academics[$student->id] = $exams;
+				#print_r($exams);
+				//echo "<br>";
+			}
+			return $academics;	
+		}
+	}
+	
+	
+	
+	
 	public static function getStudents() {
 		#Fetching all the students from students table and showing 
 		$students =Student::all();

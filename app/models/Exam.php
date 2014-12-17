@@ -10,6 +10,12 @@ class Exam extends Eloquent {
 	 */
 	protected $table = 'exams';
 	
+	public function mark() {
+        # Exam has many Marks
+        # Define a one-to-many relationship.
+        return $this->hasMany('Mark');
+    }
+	
 	// Disabling use of "created_at" and "updated_at" columns:
 	public $timestamps = false;
 	# The guarded properties specifies which attributes should *not* be mass-assignable

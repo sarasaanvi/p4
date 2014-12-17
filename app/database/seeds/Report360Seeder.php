@@ -129,11 +129,68 @@ class Report360Seeder extends Seeder {
 		$student->zip = '07974';
 		$student->photo_path = '/imgData/students/1.jpg';
 		$student->grade_id = 9;
-		$student->user_name = 'S1';
-		
+		$student->user_name = 'S1';		
 		$student->save();
 		
-	#Adding student
+		
+	#Adding Attendance for student id 1
+		$date = '2014-12-01'; # YYYY-MM-DD
+		for ($i=1;$i<=12;$i++){
+			$attendance = new Attendance;
+			$attendance->student_id = 1;
+			$attendance->grade_id = 9;
+			$attendance->teacher_id = 1;			
+			$val = rand(0, 1);
+			$attendance->attended =  $val;
+			$attendance->attendance_date = $date ;
+			$attendance->timestamps = false;
+			#next date
+			$date1 = str_replace('-', '/', $date);
+			$date = date('Y-m-d',strtotime($date1 . "+1 days"));
+			$attendance->save();
+		} 
+		
+	#Adding marks for Student 1
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 90;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 76;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-11-01';
+		$mark->mark_obtained = 34;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;		
+		$mark->exam_id = 4;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-11-01';
+		$mark->mark_obtained = 69;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 4;		
+		$mark->save();
+		
+	
+		
+		
+	#Adding student with ID 2
 		$student = new Student;
 		$student->roll = 2;
 		$student->first_name = 'Hemadri';
@@ -147,30 +204,10 @@ class Report360Seeder extends Seeder {
 		$student->zip = '07974';
 		$student->photo_path = '/imgData/students/2.jpg';
 		$student->grade_id = 9;
-		$student->user_name = 'S2';
-		
+		$student->user_name = 'S2';		
 		$student->save();
 		
-		
-		#Adding Attendance for student id 1
-		$date = '2014-12-01'; # YYYY-MM-DD
-		for ($i=1;$i<=12;$i++){
-			$attendance = new Attendance;
-			$attendance->student_id = 1;
-			$attendance->grade_id = 9;
-			$attendance->teacher_id = 1;			
-			$val = rand(0, 1);
-			//echo $val;
-			$attendance->attended =  $val;
-			//echo $date;
-			$attendance->attendance_date = $date ;
-			$attendance->timestamps = false;
-			#next date
-			$date1 = str_replace('-', '/', $date);
-			$date = date('Y-m-d',strtotime($date1 . "+1 days"));
-			$attendance->save();
-		} 
-		#Adding Attendance for student id 2
+	#Adding Attendance for student id 2
 		$date = '2014-12-01'; # YYYY-MM-DD
 		for ($i=1;$i<=12;$i++){
 			$attendance = new Attendance;
@@ -188,7 +225,43 @@ class Report360Seeder extends Seeder {
 			$date = date('Y-m-d',strtotime($date1 . "+1 days"));
 			$attendance->save();
 		} 
+	
+	#Adding marks for Student 2
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 70;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 1;		
+		$mark->save();
 		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 98;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 1;		
+		$mark->save();
 		
-	}
-}
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-11-01';
+		$mark->mark_obtained = 88;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 4;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-11-01';
+		$mark->mark_obtained = 77;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 4;
+		$mark->save();
+	
+	} #function end
+} #class end
