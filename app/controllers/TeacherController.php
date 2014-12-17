@@ -66,8 +66,7 @@ class TeacherController extends BaseController {
 		$chartArray["credits"] = array("enabled" => true); 
 		$chartArray["navigation"] = array("buttonOptions" => array("align" => "right")); 
 		$chartArray["xAxis"] = array("title"  => array('text'  => "Students "));
-		#$range = range(0,31);
-		#$chartArray["yAxis"] = array("title"  => array('text'  => "No of lecture "));# , "labels" => $range );
+		
 		
 		//$chartArray["yAxis"] = array("title" => $number = range(0,31));
 		
@@ -79,6 +78,7 @@ class TeacherController extends BaseController {
 				$categoryArray[] = $student->first_name;
 				$present = 0;
 				$absent = 0;
+				$total =0;
 				#Retrieving attendance data for this month for each student
 				$attendances = Attendance::where('attendance_date', '>=', $fromDate)
 								->where('attendance_date', '<', $toDate)
@@ -94,7 +94,8 @@ class TeacherController extends BaseController {
 							$present = $present +1;
 						}else{
 							$absent = $absent +1;
-						}	
+						}
+						$total = $total +1;
 					
 					}	
 				}
@@ -104,8 +105,10 @@ class TeacherController extends BaseController {
 			$categoryArray[] = "No Student";
 			$attendanceArray[] =0;
 		}
+		#$range = range(0,31);
+		$chartArray["yAxis"] = array("title"  => array('text'  => "No of lecture "), "max" => $total);# , "labels" => $range );
 		$chartArray["xAxis"] = array("categories" => $categoryArray);		
-		$chartArray["series"][] = array("name" => "No of class attended", "data" => $attendanceArray); 
+		$chartArray["series"][] = array("name" => "Out of Total ". $total . " Present is ", "data" => $attendanceArray); 
 		return $chartArray;
 	}
 	

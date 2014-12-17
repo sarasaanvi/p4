@@ -76,8 +76,8 @@ class Report360Seeder extends Seeder {
 		
 		$exam = new Exam;
 		$exam->exam = "Quiz";
-		$exam->full_marks = 25;
-		$exam->passing_marks =15;
+		$exam->full_marks = 100;
+		$exam->passing_marks =80;
 		$exam->save();
 		
 		$exam = new Exam;
@@ -135,7 +135,7 @@ class Report360Seeder extends Seeder {
 		
 	#Adding Attendance for student id 1
 		$date = '2014-12-01'; # YYYY-MM-DD
-		for ($i=1;$i<=12;$i++){
+		for ($i=1;$i<=17;$i++){
 			$attendance = new Attendance;
 			$attendance->student_id = 1;
 			$attendance->grade_id = 9;
@@ -170,8 +170,36 @@ class Report360Seeder extends Seeder {
 		$mark->save();
 		
 		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 66;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 77;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 93;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		
+		$mark = new Mark;
 		$mark->subject = "Subject1";
-		$mark->exam_date = '2014-11-01';
+		$mark->exam_date = '2014-12-01';
 		$mark->mark_obtained = 34;
 		$mark->teacher_id = 1;
 		$mark->student_id = 1;		
@@ -180,15 +208,130 @@ class Report360Seeder extends Seeder {
 		
 		$mark = new Mark;
 		$mark->subject = "Subject2";
-		$mark->exam_date = '2014-11-01';
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 78;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 4;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 75;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;		
+		$mark->exam_id = 4;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
 		$mark->mark_obtained = 69;
 		$mark->teacher_id = 1;
 		$mark->student_id = 1;
 		$mark->exam_id = 4;		
 		$mark->save();
 		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 91;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 4;		
+		$mark->save();
 	
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 86;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 2;		
+		$mark->save();
 		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 73;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 84;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 70;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 90;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 67;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;		
+		$mark->exam_id = 3;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 70;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 3;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 75;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;		
+		$mark->exam_id = 3;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 66;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 3;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 81;
+		$mark->teacher_id = 1;
+		$mark->student_id = 1;
+		$mark->exam_id = 3;		
+		$mark->save();
 		
 	#Adding student with ID 2
 		$student = new Student;
@@ -209,7 +352,7 @@ class Report360Seeder extends Seeder {
 		
 	#Adding Attendance for student id 2
 		$date = '2014-12-01'; # YYYY-MM-DD
-		for ($i=1;$i<=12;$i++){
+		for ($i=1;$i<=17;$i++){
 			$attendance = new Attendance;
 			$attendance->student_id = 2;
 			$attendance->grade_id = 9;
@@ -230,7 +373,7 @@ class Report360Seeder extends Seeder {
 		$mark = new Mark;
 		$mark->subject = "Subject1";
 		$mark->exam_date = '2014-12-01';
-		$mark->mark_obtained = 70;
+		$mark->mark_obtained = 80;
 		$mark->teacher_id = 1;
 		$mark->student_id = 2;
 		$mark->exam_id = 1;		
@@ -239,29 +382,176 @@ class Report360Seeder extends Seeder {
 		$mark = new Mark;
 		$mark->subject = "Subject2";
 		$mark->exam_date = '2014-12-01';
-		$mark->mark_obtained = 98;
+		$mark->mark_obtained = 86;
 		$mark->teacher_id = 1;
 		$mark->student_id = 2;
 		$mark->exam_id = 1;		
 		$mark->save();
 		
 		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 76;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 87;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 83;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 1;		
+		$mark->save();
+		
+		
+		$mark = new Mark;
 		$mark->subject = "Subject1";
-		$mark->exam_date = '2014-11-01';
-		$mark->mark_obtained = 88;
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 84;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;		
+		$mark->exam_id = 4;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 98;
 		$mark->teacher_id = 1;
 		$mark->student_id = 2;
 		$mark->exam_id = 4;		
 		$mark->save();
 		
 		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 85;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;		
+		$mark->exam_id = 4;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 79;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 4;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 81;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 4;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 79;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
 		$mark->subject = "Subject2";
-		$mark->exam_date = '2014-11-01';
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 81;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 86;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 88;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 73;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 2;		
+		$mark->save();
+		
+		
+		$mark = new Mark;
+		$mark->subject = "Subject1";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 87;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;		
+		$mark->exam_id = 3;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject2";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 78;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 3;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject3";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 82;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;		
+		$mark->exam_id = 3;
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject4";
+		$mark->exam_date = '2014-12-01';
+		$mark->mark_obtained = 73;
+		$mark->teacher_id = 1;
+		$mark->student_id = 2;
+		$mark->exam_id = 3;		
+		$mark->save();
+		
+		$mark = new Mark;
+		$mark->subject = "Subject5";
+		$mark->exam_date = '2014-12-01';
 		$mark->mark_obtained = 77;
 		$mark->teacher_id = 1;
 		$mark->student_id = 2;
-		$mark->exam_id = 4;
+		$mark->exam_id = 3;		
 		$mark->save();
+	
 	
 	} #function end
 } #class end

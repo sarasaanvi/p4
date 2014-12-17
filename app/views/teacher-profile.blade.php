@@ -7,7 +7,7 @@
 					{{ Form::submit( 'Submit ','',array('class' => 'form-control-wrap-button')) }}
 				{{ Form::close() }}
 	</span>
-	{{ Form::open(array('action' =>  'TeacherController@getIndex' ,'class' => 'form-inline')) }}		
+	{{ Form::open(array('url' => '/teacher', 'method' => 'GET' ,'class' => 'form-inline')) }}			
 		<br>
 		<fieldset>			
 			<legend>Personal Information</legend>	
