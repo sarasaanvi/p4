@@ -14,7 +14,7 @@ End Users: The end users of Report360 will be high school/ college students who 
 Report360 will give a clear picture to the teachers/ students/ parents about the academic performance of the one they are trying to access. Instead of making just report cards, Report360 will graphically represent the situation and highlight the problem area. It will give insights and suggestions what can be done in such situations. 
 
 
-## How to use
+## Users for Report 360
 
 Basically there are three different type of users for Report360 application:
 ###Administrator User  
@@ -27,7 +27,7 @@ Students and Parents have just the read privilege to database. They are not allo
 ###Teacher User 
 Teacher also have read access to database but for few table he can edit/add/delete data e.g Adding daily attendance and grades for various exams and assignments.
 
-	For student and Teacher user, first time they need to activate their account and set password for their account. Once account has been activated, they can login to the application.
+For student and Teacher user, first time they need to activate their account and set password for their account. Once account has been activated, they can login to the application.
 
 ###Try out yourself
 Till now I have complicated the Teacher part of the application and will present it for grading for P4 grading.
