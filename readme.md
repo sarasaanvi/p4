@@ -39,13 +39,17 @@ Here is login credential for Teacher:
 	To login to the application as teacher and perform some action
 	UserName : T1 (case insensitive)
 	Password : abc123
-	
+
+## Project url	
+http://p4.hemadri.me/
 
 ## Recorded Demo 
 
 For recorded demo please visit the following link:
 
-[![Demo](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+http://www.screencast.com/users/hemadri123/folders/Harvard_projects_demo/media/de223284-20aa-4cc0-9308-ef45273005f5
+
+
 
 
 ## Todo
