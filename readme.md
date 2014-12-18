@@ -1,4 +1,4 @@
-# Report360: A performance reporting web application for students.
+# Report360: A performance reporting web application
 
 
 ## What is Report360
@@ -18,13 +18,16 @@ Report360 will give a clear picture to the teachers/ students/ parents about the
 
 Basically there are three different type of users for Report360 application:
 ###Administrator User  
-An Administrator is responsible to add/edit/delete  student and Teacher data. At the time of admission, the school admin will add new student to database and create the username(which will be the student enrolment no). Admin have full previllage access to database. 
+An Administrator is responsible to add/edit/delete  student and Teacher data. Admin are super user and have full privilege on school database. 
+	For Student :At the time of admission, the school admin will add new student to database and send the username(which will be the student's enrolment no). 
+	For Teacher :At time of joining admin will add a new teacher to database and send the username(which will be the teacher's Employee ID). 
+	
 ###Student/Parents User 
 Students and Parents have just the read privilege to database. They are not allow edit or delete any data.
 ###Teacher User 
 Teacher also have read access to database but for few table he can edit/add/delete data e.g Adding daily attendance and grades for various exams and assignments.
 
-For student and Teacher user, first time they need to activate their account and set password for their account. Once account has been activated, they can login to the application.
+	For student and Teacher user, first time they need to activate their account and set password for their account. Once account has been activated, they can login to the application.
 
 ###Try out yourself
 Till now I have complicated the Teacher part of the application and will present it for grading for P4 grading.
@@ -47,11 +50,13 @@ For recorded demo please visit the following link:
 
 ## Todo
 
-###To enhance Report360 for Student Login.
+* To enhance Report360 for Student Login.
 ###To enhance Report360 for Admin Login.
 ###Work on graphs and charts to make it more informative and interactive.
 ###Emails and notification
 ###Live Chat and discussion Forum
+###Integrate homework assignments, school announcements, class time tables, holiday calendar 
+###Transport schedule and tracking
 
 
 
