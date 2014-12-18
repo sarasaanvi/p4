@@ -8,10 +8,62 @@
 			<a href='/teacher/param-marks'>Add Marks</a>	
 		</li>
 		<li >
-			<a href='/teacher/add-attendance'>Add attendance</a>	
+			<div id="attendance" style='display: none;'>
+				<form action='\teacher\add-attendance\' method='GET'>
+					<input name ="grade_id" type="text" value="Select Grade" onClick= "this.value='';" onFocus= "this.select()" onBlur = "this.value=!this.value?'Select Grade':this.value;" style= "background-color : #99FFCC; width: 100px;">
+					<input type="submit" value="OK" style= "background-color : #99FFCC; width: 50px;">
+				</form>
+			</div>
+
+			<script>
+			function attendFunction() {
+				var x = document.getElementById("attendance");
+				var y = document.getElementById("attendanceLink");
+				  
+				if (x.style.display == 'block') {
+						x.style.display = 'none';
+						this.style.innerHTML = 'Add Attendance';
+				} else {
+					x.style.display = 'block';
+					this.style.innerHTML = 'Cancel Attendance';
+				}
+				           
+				//x.style.color = "red"; 
+			}
+			</script>
+			<!--<a href='/teacher/add-achievement'>Add Achievements</a>-->
+			<a onclick="attendFunction()" id= "attendanceLink"  >Add attendance</a>			
 		</li>
 		<li>
-			<a href='/teacher/add-achievement'>Add Achievements</a>
+			<div id="demo" style='display: none;'>
+				<form action="add-achievement">
+					<input type="text" value="Select Grade" onClick= "this.value='';" onFocus= "this.select()" onBlur = "this.value=!this.value?'Select Grade':this.value;" style= "background-color : #99FFCC; width: 100px;">
+					<input type="submit" value="OK" style= "background-color : #99FFCC; width: 50px;">
+				</form>
+			</div>
+
+			<script>
+			function myFunction() {
+				var x = document.getElementById("demo");
+				var y = document.getElementById("link1");
+				  
+				if (x.style.display == 'block') {
+						x.style.display = 'none';
+						this.style.innerHTML = 'Add Achievements';
+				} else {
+					x.style.display = 'block';
+					this.style.innerHTML = 'Cancel Achievements';
+				}
+				           
+				//x.style.color = "red"; 
+			}
+			</script>
+
+
+		
+			<!--<a href='/teacher/add-achievement'>Add Achievements</a>-->
+			<a onclick="myFunction()" id= "link1"  >Add Achievements</a>
+			
 		</li>
 		<li>
 			<a href="/teacher/teacher-profile">View Profile </a>

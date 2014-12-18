@@ -169,9 +169,11 @@ class Student extends Eloquent {
 		#Fetching all the students from students table and showing 
 		$students =Student::where('grade_id','=',$grade_id)
 			->get(array('id', 'first_name','grade_id','last_name'));
-		 if($students->isEmpty() != TRUE) {
+		if($students->isEmpty() != TRUE) {
 			return $students;
-		} 
+		} else{
+			return "Not Found";
+		}
 	}
 	
 	public static function getStudentList($grade_id) {

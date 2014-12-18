@@ -783,3 +783,7 @@ font-style: italic;
 /*property for disable input element like*/
 /*disabled:true; */
 }
+.askParam {
+  display: none;
+  //margin-bottom: 0;
+}

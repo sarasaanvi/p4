@@ -1,7 +1,6 @@
 @extends('_masterTeacher')
 @section('content')
-	{{ Form::open(array('action' => 'TeacherController@postAddAttendance','class' => 'form-inline')) }}			
-		
+	
 	</br>
 	</br>
 	<table>

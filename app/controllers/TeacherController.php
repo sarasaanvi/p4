@@ -240,16 +240,28 @@ class TeacherController extends BaseController {
     public function getAddAttendance() {
 		#Getting the list of grades from the grades table
 		$_result = $this->customize();		
-		if ($_result[2]) {
-			$grade = array_values($_result[2])[0]; # Getting first element of the gradelist at Initial time #will take first value from the gradeList
-		}
-		Session::put('grade_id', $grade);
-		$students =Student::getClass($grade);
+		$grade = Input::get('grade_id');
+		$rules = array(
+				'grade_id' => 'required|numeric' 
+		); 
+		$validator = Validator::make(Input::all(), $rules);
+		if($validator->fails()) {
+				return Redirect::action('TeacherController@getIndex')
+					->with('flash_message', 'Add Attendance failed; Invalid input for Grade');
+			}
+		
+		Session::put('grade_id', $grade);		
 		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
 		$teacher_id = $teacher->id;
 		$today = date('Y-m-d');
 		#Check if Attendance is already marked ??
+		$students =Student::getClass($grade);
 		$_Attendanceresult = Attendance::getClassAttendance($grade,$today,$teacher_id );	
+		if ($students == "Not Found") {					
+				 return Redirect::action('TeacherController@getIndex')
+					->with('flash_message', 'No student enrolled for this Grade')
+					->withInput();
+		}
 		if ($_Attendanceresult == "Not Found") {
 			return View::make('add-attendance')
 				->with('photo_path', $_result[0])
@@ -263,12 +275,12 @@ class TeacherController extends BaseController {
 # POST: http://localhost/teacher/add-attendance
     public function postAddAttendance() {
 		$_result = $this->customize();	
-		$grade =Input::get('grade_id');
+		$grade = Session::get('grade_id');
 		$Inputs =Input::all();
 		$studentList =Student::getClass($grade);
 		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
 		$teacher_id = $teacher->id;
-		unset($Inputs['grade_id']);
+		#unset($Inputs['grade_id']);
 		unset($Inputs['_token']);
 		// #print_r($Inputs);
 		$today = date('Y-m-d');
