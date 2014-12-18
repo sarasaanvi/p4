@@ -51,12 +51,12 @@ For recorded demo please visit the following link:
 ## Todo
 
 * To enhance Report360 for Student Login.
-###To enhance Report360 for Admin Login.
-###Work on graphs and charts to make it more informative and interactive.
-###Emails and notification
-###Live Chat and discussion Forum
-###Integrate homework assignments, school announcements, class time tables, holiday calendar 
-###Transport schedule and tracking
+* To enhance Report360 for Admin Login.
+* Work on graphs and charts to make it more informative and interactive.
+* Emails , Notice and notification
+* Live Chat and discussion Forum
+* Integrate homework assignments, school announcements, class time tables, holiday calendar 
+* Transport schedule and tracking
 
 
 
