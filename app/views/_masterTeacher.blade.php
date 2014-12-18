@@ -11,7 +11,7 @@
 			<a href='/teacher/add-attendance'>Add attendance</a>	
 		</li>
 		<li>
-			<a href='/teacher/add-achievements'>Add Achievements</a>
+			<a href='/teacher/add-achievement'>Add Achievements</a>
 		</li>
 		<li>
 			<a href="/teacher/teacher-profile">View Profile </a>

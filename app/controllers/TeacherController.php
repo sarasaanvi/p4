@@ -237,7 +237,7 @@ class TeacherController extends BaseController {
 	}
 
     # GET: http://localhost/teacher/add-attendance
-     public function getAddAttendance() {
+    public function getAddAttendance() {
 		#Getting the list of grades from the grades table
 		$_result = $this->customize();		
 		if ($_result[2]) {
@@ -467,6 +467,75 @@ class TeacherController extends BaseController {
 		}
 		return Redirect::action('TeacherController@getIndex')->with('flash_message', 'Marks Added ');
 	}
+	
+#############################################################################################################
+# Achievements
+#
+##############################################################################################################		
+# GET: http://localhost/teacher/add-achievement
+    public function getAddAchievement() {
+		return "coming up";
+		// #Getting the list of grades from the grades table
+		// $_result = $this->customize();		
+		// if ($_result[2]) {
+			// $grade = array_values($_result[2])[0]; # Getting first element of the gradelist at Initial time #will take first value from the gradeList
+		// }
+		// Session::put('grade_id', $grade);
+		// $students =Student::getClass($grade);
+		// $teacher = Teacher::getTeacherRecord(Session::get('user_name'));
+		// $teacher_id = $teacher->id;
+		// $today = date('Y-m-d');
+		// #Check if Attendance is already marked ??
+		// $_Attendanceresult = Attendance::getClassAttendance($grade,$today,$teacher_id );	
+		// if ($_Attendanceresult == "Not Found") {
+			// return View::make('add-attendance')
+				// ->with('photo_path', $_result[0])
+				// ->with('first_name', $_result[1])
+				// ->with('grade_list',$_result[2])
+				// ->with('studentList',$students);
+		// } else {
+			// return Redirect::action('TeacherController@getShowAttendance');
+		// }
+    }
+# POST: http://localhost/teacher/add-achievement
+    public function postAddAchievement() {
+		$_result = $this->customize();	
+		$grade =Input::get('grade_id');
+		$Inputs =Input::all();
+		$studentList =Student::getClass($grade);
+		$teacher = Teacher::getTeacherRecord(Session::get('user_name'));
+		$teacher_id = $teacher->id;
+		unset($Inputs['grade_id']);
+		unset($Inputs['_token']);
+		// #print_r($Inputs);
+		$today = date('Y-m-d');
+		$student_id = array_keys($Inputs);
+		
+		if ($studentList) {
+			foreach($studentList as $student) {
+				$attendance = new Attendance;
+				$attendance->student_id = $student->id;
+				if (in_array($student->id, $student_id)){
+					$attendance->attended = 1;
+				}else{
+					$attendance->attended = 0;
+				}
+				$attendance->attendance_date = $today;
+				$attendance->grade_id = $grade;
+				$attendance->teacher_id = $teacher_id;
+				$attendance->save();			
+			}
+		}
+		return Redirect::action('TeacherController@getShowAttendance');
+	}	
+	
+	
+	
+#############################################################################################################
+# Profile
+#
+##############################################################################################################	
+	
 	# GET: http://localhost/teacher/teacher-profile
      public function getTeacherProfile() {
 		#Getting the list of grades from the grades table
