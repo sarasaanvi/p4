@@ -40,4 +40,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 	
+	public static function getAccount($user_name) {
+		$user = User::where('user_name', '=', $user_name)->first();
+		 # If we found the user, then return it's account type
+		if($user) {
+			//echo $user;
+			return $user;
+		} 
+		else{
+			return "Not Found";
+		}
+
+	}
+	
 }

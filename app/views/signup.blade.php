@@ -1,25 +1,32 @@
 @extends('_base')
 @section('main_content')
-	<h3><span>Sign-up to Report360</span></h3>
+	<h3><span>Activate Report360 Account</span></h3>
 	
-	{{ Form::open(array( 'url' => '/user/signup' ,'class' => 'form-inline')) }}
+	
+	{{ Form::open(array('action' => 'UserController@postSignup','class' => 'form-inline')) }}
+		@foreach($errors->all() as $message) 
+			{{ Form::label( 'label', $message,array('class' => 'msgerror')) }}
+			<br>
+		@endforeach
 		
 		<br>			
-		<br>
-			
-			{{ Form::label( 'username', 'User Name  ',array('class' => 'form-control-wrap-label')) }}				
-			{{ Form::text( 'usrname' ) }}
+		<br>			
+			{{ Form::label( 'username', 'User Name  ',array('class' => 'form-control-wrap-label')) }}			
+			{{ Form::text( 'user_name' ) }}
+			{{ Form::label( 'user_msg1', 'User Name is your Enrolment/Employee number',array('class' => 'msg')) }}
 			<br>
 			<br>
 			{{ Form::label( 'password', 'Password ',array('class' => 'form-control-wrap-label')) }}
-			{{ Form::password( 'pwd1' ) }}
+			{{ Form::password( 'password_1' ) }}
+			{{ Form::label( 'user_msg2', 'Max of 6 characters',array('class' => 'msg')) }}
 			<br>
 			<br>
 			{{ Form::label( 'password', 'Retype Password') }}
-			{{ Form::password( 'pwd2' ) }}
+			{{ Form::password( 'password_2' ) }}
+			{{ Form::label( 'user_msg3', 'Confirm your password',array('class' => 'msg')) }}
 			<br>	
 			<br>
-			{{ Form::submit( 'Sign-up','',array('class' => 'form-control-wrap-button')) }}
+			{{ Form::submit( 'Activate','',array('class' => 'form-control-wrap-button')) }}
 			<br>
 			
 		{{ Form::close() }}

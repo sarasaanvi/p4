@@ -188,7 +188,19 @@ class TeacherController extends BaseController {
 		# User pressed "Search student" button on the home page
 		if( Input::get('student_id')){
 			#Make a Student view
-			return "Show Student Record";
+			$id=  Input::get('student_id');
+			$student = Student::getStudentRecord($id);
+			$exam_list = Exam::getExamList();
+			return View::make('/student-profile')
+					->with('flash_message', 'Welcome to Report360!')
+					->with('photo_path', $_result[0])
+					->with('first_name', $_result[1])
+					->with('exam_list', $exam_list)
+					->with('student', $student);
+					#->with('student_list', $student_list)
+					#->with('msg', $msg)
+					#->with('chartArray', $attendanceChart)
+					#->with('marksArray', $marksChart);	
 		}else{		
 			#User selected a different Grade on the Home page
 			$grade = Input::get('grade_id');
@@ -219,7 +231,7 @@ class TeacherController extends BaseController {
 					->with('student_list', $student_list)
 					->with('msg', $msg)
 					->with('chartArray', $attendanceChart)
-					->with('marksArray', $marksChart);;				
+					->with('marksArray', $marksChart);				
 			} 
 		}
 	}

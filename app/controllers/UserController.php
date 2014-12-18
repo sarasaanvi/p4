@@ -9,10 +9,10 @@ class UserController extends BaseController {
 	       
     } 
 	
-	 # GET: http://localhost/user
-    public function getIndex() {
-
-    }
+	 // # GET: http://localhost/user
+    // public function getIndex() {
+		// //return Redirect::action('UserController@getSignin');
+    // }
 
     # GET: http://localhost/user/signup
     public function getSignup() {
@@ -20,29 +20,57 @@ class UserController extends BaseController {
     }
 
     # POST: http://localhost/user/signup
-    public function postSignup() {
-			$user = new User;
-			#validate student from student grade and roll no. Give error if student not found and if found
-			$user->user_name = Input::get('username');
-			$user->password = Hash::make(Input::get('pwd'));
-			$user->account_type = Input::get('account_type');
-			#saving user in databases			
+    public function postSignup() {			
+			$user_name = Input::get('user_name');
+			$password1 = Input::get('password_1');
+			$password2 = Input::get('password_2');
+			$rules = array(
+				'user_name' => 'required', 
+				'password_1' => 'required|min:3', 
+				'password_2' => 'required|same:password_1'
+				
+			); 
+			$validator = Validator::make(Input::all(), $rules);
+
+			if($validator->fails()) {
+
+				return Redirect::action('UserController@getSignup')
+					->with('flash_message', 'Activation failed; please fix the errors.')
+					->withInput()
+					->withErrors($validator);
+			}
+			#If everything is find get the Record from the user table for this user_name and add password and mark account as activated. 
+			$user = User::getAccount($user_name);
+			#if user account is already activated
+			if ($user->acctivated == 1){
+				#Fetch Student's Home page
+				return Redirect::action('UserController@getSignin')
+				->with('flash_message', 'User is already activated..Welcome to Report360!');				
+			}
+			#Edit user in databases			
 			try{
+				$user->password = Hash::make(Input::get('pwd'));
+				$user->activated = 1;
 				$user->save();
 			}
-			catch(Exception $e){
-				
-				return Redirect::to('/signup')->with('flash_message', 'Sign up failed; please try again.')->withInput();
+			catch(Exception $e){					
+				 return Redirect::action('UserController@getSignup')->with('flash_message', 'Account Activation failed; please try again.')->withInput();
 			}
 			
 			#Log the user in
 			Auth::login($user);
+			#Make user_name accessible throughout the application
+			Session::put('user_name', $user_name);
 			if ($user->account_type == "Student"){
-				return Redirect::to('/homeStudent')->with('flash_message', 'Welcome to Report360!');
+				#Fetch Student's Home page
+				return Redirect::action('StudentController@getSignin')->with('flash_message', 'Welcome to Report360!');				
 			}elseif ($user->account_type == "Teacher"){
-				return Redirect::to('/homeTeacher')->with('flash_message', 'Welcome to Report360!');
+				#Fetch Teacher's Home page
+				return Redirect::action('TeacherController@getSignin')->with('flash_message', 'Welcome to Report360!');
+			}elseif ($user->account_type == "Admin"){
+				return Redirect::action('AdminController@getSignin')->with('flash_message', 'Welcome to Report360!');
 			}else{
-				return Redirect::to('/signup')->with('flash_message', 'Sign up failed; please try again.')->withInput();
+				return Redirect::action('UserController@getSignup')->with('flash_message', 'Unknown Account; please try again.');
 			}
 	}
 
@@ -58,22 +86,42 @@ class UserController extends BaseController {
 		$user_name = Input::get('user_name');	
 		#Make user_name accessible throughout the application
 		Session::put('user_name', $user_name);
-		if (Auth::attempt($credentials, $remember = true)) {
+		if (Auth::attempt($credentials)) {
+			try{
+				$user = User::getAccount($user_name);				
+			}catch(Exception $e){					
+				 return Redirect::action('UserController@getSignin')
+					->with('flash_message', 'Log in failed; please try again.')
+					->withInput();
+			}
+			#if user account is not activated
+			
+			if ($user->activated == 0){
+				return Redirect::action('UserController@getSignup')
+							->with('flash_message', "User's account is not activated.");				
+			} 
+			
+			
 			#create home page based on the account Type
-			$AccType = User::getAccountType($user_name);
+			$AccType = $user->account_type;
 			if ($AccType == "Student"){
-				#Fetch Teacher's Home page
-				return Redirect::action('StudentController@getIndex');				
+				#Fetch Home's Home page
+				return Redirect::action('StudentController@getIndex')
+					->with('flash_message', 'Welcome to Report360!');				
 			}elseif ($AccType  == "Teacher"){
 				#Fetch Teacher's Home page
-				return Redirect::action('TeacherController@getIndex');
+				return Redirect::action('TeacherController@getIndex')
+					->with('flash_message', 'Welcome to Report360!');
 			}elseif ($AccType == "Admin"){
-				return Redirect::to('/admin')->with('flash_message', 'Welcome to Report360!');
-			}else{
-				return Redirect::to('/user/signin')->with('flash_message', 'Unknown Account; please try again.');
+				return Redirect::action('AdminController@getIndex')
+					->with('flash_message', 'Welcome to Report360!');
+			} else{
+				return Redirect::action('UserController@getSignin')->with('flash_message', 'Log in failed; please try again.');
 			}
+						
 		}else{
-			return Redirect::to('/user/signin')->with('flash_message', 'Log in failed; please try again.');
+			return Redirect::action('UserController@getSignin')
+				->with('flash_message', 'Log in failed; please try again.');
 		}
 	}
 
@@ -83,7 +131,7 @@ class UserController extends BaseController {
 		Auth::logout();
 
 		# Send them to the homepage
-		return Redirect::to('/');
+		return Redirect::action('UserController@getSignin');
     }
 
     # GET: http://localhost/user/generate-new-password

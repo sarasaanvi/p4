@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration {
 			$table->string('remember_token',100); 
 			$table->string('password');
 			$table->string('account_type');
-			$table->boolean('sign_up');
+			$table->boolean('activated');
 			$table->timestamps();
 			
 		});

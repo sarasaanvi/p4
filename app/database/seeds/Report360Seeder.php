@@ -20,14 +20,14 @@ class Report360Seeder extends Seeder {
 		$studentUsr->user_name = 'S1';
 		$studentUsr->account_type = 'Student';
 		$studentUsr->password = Hash::make('abc123');
-		$studentUsr->sign_up = true;
+		$studentUsr->activated =true;
 		$studentUsr->save();
 		# Adding student id =2
 		$studentUsr = new User;
 		$studentUsr->user_name = 'S2';
 		$studentUsr->account_type = 'Student';
 		$studentUsr->password = Hash::make('abc123');
-		$studentUsr->sign_up = true;
+		$studentUsr->activated =true;
 		$studentUsr->save();
 		
 		# Adding teacher id =2
@@ -35,15 +35,15 @@ class Report360Seeder extends Seeder {
 		$teacherUsr->user_name = "T1";
 		$teacherUsr->account_type = 'Teacher';
 		$teacherUsr->password = Hash::make('abc123');
-		$teacherUsr->sign_up = true;
+		$teacherUsr->activated =true;
 		$teacherUsr->save();
 		
 		# Adding Admin id =3
 		$teacherUsr = new User;
-		$teacherUsr->user_name = 'a1';
+		$teacherUsr->user_name = 'A1';
 		$teacherUsr->account_type = 'Admin';
 		$teacherUsr->password = Hash::make('abc123');
-		$teacherUsr->sign_up = true;
+		$teacherUsr->activated =true;
 		$teacherUsr->save();
 	
 	#Adding grades by default each grade sections- 'A' 

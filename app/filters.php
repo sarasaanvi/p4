@@ -43,7 +43,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('signin')->with('flash_message','You have to be logged in to do that.');;
 		}
 	}
 });
@@ -67,7 +67,37 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Auth::check()) {
+	
+		#Make user_name accessible throughout the application
+			$user_name = Session::get('user_name');
+			try{
+				$user = User::getAccount($user_name);				
+			}catch(Exception $e){					
+				 return Redirect::action('UserController@getSignin')
+					->with('flash_message', 'Log in failed; please try again.')
+					->withInput();
+			}
+			#create home page based on the account Type
+			$AccType = $user->account_type;
+			if ($AccType == "Student"){
+				#Fetch Home's Home page
+				return Redirect::action('StudentController@getIndex')
+					->with('flash_message', 'Welcome to Report360!');				
+			}elseif ($AccType  == "Teacher"){
+				#Fetch Teacher's Home page
+				return Redirect::action('TeacherController@getIndex')
+					->with('flash_message', 'Welcome to Report360!');
+			}elseif ($AccType == "Admin"){
+				return Redirect::action('AdminController@getIndex')
+					->with('flash_message', 'Welcome to Report360!');
+			} else{
+				return Redirect::action('UserController@getSignin')->with('flash_message', 'Log in failed; please try again.');
+			}
+	
+	}
+
+	//return Redirect::to('/');
 });
 
 /*

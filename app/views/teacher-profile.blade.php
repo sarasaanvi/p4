@@ -5,7 +5,7 @@
 					{{ Form::label( 'grade', 'Select Grade  ',array('class' => 'form-control-wrap-button')) }}					
 					{{ Form::select('grade_id', $grade_list, array( 'onchange' => 'TeacherController@postIndex')) }}		
 					{{ Form::submit( 'Submit ','',array('class' => 'form-control-wrap-button')) }}
-				{{ Form::close() }}
+	{{ Form::close() }}
 	</span>
 	{{ Form::open(array('url' => '/teacher', 'method' => 'GET' ,'class' => 'form-inline')) }}			
 		<br>

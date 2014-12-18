@@ -54,7 +54,7 @@ class Student extends Eloquent {
 				// echo $attendance;
 				// echo "<br>";
 			// }
-			//return $student;
+			return $student;
 		}else{
 			return "Not Found";
 		}

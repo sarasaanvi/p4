@@ -766,3 +766,20 @@ font-style: italic;
 /*property for disable input element like*/
 /*disabled:true; */
 }  
+
+.msg{
+color : blue;
+font-style: italic;
+/*property for disable input element like*/
+/*disabled:true; */
+}  
+
+.msgerror{
+color : red;
+font-style: italic;
+	padding:5px;
+	//background-color:blue;
+	text-align:center;
+/*property for disable input element like*/
+/*disabled:true; */
+}
