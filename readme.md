@@ -1,25 +1,57 @@
-## Laravel PHP Framework
+# Report360: A performance reporting web application for students.
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+## What is Report360
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Report360 will be a web application which lets users: students or parents, to view the comprehensive performance including grades, sports, attendance and co-circular activities. It will allow students/ parents to see the progress of the student, on monthly or yearly basis, giving the graphical representations of strengths, weaknesses and area of improvements for a particular student. 
+The system will also help teachers to work more efficiently and understand the class more effectively. They can coordinate among themselves or work together with a particular student for helping him improves. Report360 will give teachers a holistic view of the class, which can be used to evaluate a teacher’s performance as well. 
+Apart from the above idea, Report360 will also integrate homework assignments, school announcements, class time tables, holiday calendar and transport schedules all at one place.
+End Users: The end users of Report360 will be high school/ college students who can check their results online. Also, parents who are interested in the academic progress of their children can be the end users. Moreover, the teachers will be using Report360 to enter the student’s progress, prepare reports and view/ present their students or classes’ progress. 
 
-## Official Documentation
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+###	Business Solution
+Report360 will give a clear picture to the teachers/ students/ parents about the academic performance of the one they are trying to access. Instead of making just report cards, Report360 will graphically represent the situation and highlight the problem area. It will give insights and suggestions what can be done in such situations. 
 
-### Contributing To Laravel
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+## How to use
 
-### License
+Basically there are three different type of users for Report360 application:
+###Administrator User  
+An Administrator is responsible to add/edit/delete  student and Teacher data. At the time of admission, the school admin will add new student to database and create the username(which will be the student enrolment no). Admin have full previllage access to database. 
+###Student/Parents User 
+Students and Parents have just the read privilege to database. They are not allow edit or delete any data.
+###Teacher User 
+Teacher also have read access to database but for few table he can edit/add/delete data e.g Adding daily attendance and grades for various exams and assignments.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+For student and Teacher user, first time they need to activate their account and set password for their account. Once account has been activated, they can login to the application.
+
+###Try out yourself
+Till now I have complicated the Teacher part of the application and will present it for grading for P4 grading.
+
+For demo I have added a database seeder which populate database with some test data.
+
+Here is login credential for Teacher:
+	
+	To login to the application as teacher and perform some action
+	UserName : T1 (case insensitive)
+	Password : abc123
+	
+
+## Recorded Demo 
+
+For recorded demo please visit the following link:
+
+[![Demo](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+
+
+## Todo
+
+###To enhance Report360 for Student Login.
+###To enhance Report360 for Admin Login.
+###Work on graphs and charts to make it more informative and interactive.
+###Emails and notification
+###Live Chat and discussion Forum
+
+
+
